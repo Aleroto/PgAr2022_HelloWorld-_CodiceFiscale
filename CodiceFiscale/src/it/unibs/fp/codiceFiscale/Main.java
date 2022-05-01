@@ -4,8 +4,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		XML.ciao();
 		XML.readerXML();
+		//XML.prova2();
 		
 	}
 
