@@ -20,5 +20,11 @@ public class HomeTown {
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public HomeTown(String name, String code) {
+		super();
+		this.name = name;
+		this.code = code;
+	}
 	
 }

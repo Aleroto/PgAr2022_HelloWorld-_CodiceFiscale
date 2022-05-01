@@ -54,4 +54,15 @@ public class Person {
 		this.fc = fc;
 	}
 	
+	public Person(String name, String surname, String gender, HomeTown birthPlace, Date birthDate, FiscalCode fc) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.gender = gender;
+		this.birthPlace = birthPlace;
+		this.birthDate = birthDate;
+		this.fc = fc;
+	}
+	
+	
 }

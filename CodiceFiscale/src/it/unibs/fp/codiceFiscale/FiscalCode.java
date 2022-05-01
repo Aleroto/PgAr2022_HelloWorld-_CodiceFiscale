@@ -67,4 +67,17 @@ public class FiscalCode {
 	public void setBirthDayDate(int birthDayDate) {
 		this.birthDayDate = birthDayDate;
 	}
+	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, int birthYearDate,
+			int birthMonthDate, int birthDayDate) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.birthCodPlace = birthCodPlace;
+		this.controlCharacter = controlCharacter;
+		this.birthYearDate = birthYearDate;
+		this.birthMonthDate = birthMonthDate;
+		this.birthDayDate = birthDayDate;
+	}
+	
+	
 }
