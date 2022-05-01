@@ -9,7 +9,10 @@ import javax.xml.stream.XMLStreamReader;
  
 
 public class XML {
-/*
+private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
+private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
+
+	/*
  * Class to support the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
  * that return a generic arraylist with XML tag name associated
  */
@@ -17,13 +20,16 @@ public class XML {
 		System.out.println("ciao");
 	}
 	
-	public static void lettura() {
+	public static void readerXML() {		
+		XMLInputFactory xmlInputFactory = null;
+		XMLStreamReader xmlStreamReader  = null;
+		
 		try {
 			//File Path
-			String filePath = "D:\\Desktop\\scuola\\universita\\UNIBS\\Arnaldo\\gruppo\\PgAr2022_HelloWorld-_CodiceFiscale\\XML\\inputPersone.xml"; //File Path		
+			String filePath = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path		
 			Reader fileReader = new FileReader(filePath);	//Read XML file.
-			XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
-			XMLStreamReader xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
+			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
+			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
 	 
 			//Iterate through events.
 			while(xmlStreamReader.hasNext()){
