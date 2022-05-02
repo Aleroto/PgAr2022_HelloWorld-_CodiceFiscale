@@ -1,5 +1,4 @@
 package it.unibs.fp.codiceFiscale;
-import java.util.Date;
 
 /**
  * 
@@ -13,7 +12,7 @@ public class Person {
 	//Attributes
 	private String name,surname, gender;
 	private HomeTown birthPlace;
-	private Date birthDate;
+	private String birthDate;
 	private FiscalCode fc;
 	
 	//Getter and Setter
@@ -41,10 +40,10 @@ public class Person {
 	public void setBirthPlace(HomeTown birthPlace) {
 		this.birthPlace = birthPlace;
 	}
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return birthDate;
 	}
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
 	public FiscalCode getFc() {
