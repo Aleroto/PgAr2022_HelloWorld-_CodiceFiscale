@@ -5,6 +5,7 @@ import java.util.regex.*;
 
 public class CodeGenerator {
 
+	//methods that return a cod of three letter from a surname string with the use of specific rules
 	public static String surnameGenerator(String surname) {
 		// Attributes
 		int surnameLength = surname.length();
@@ -57,6 +58,7 @@ public class CodeGenerator {
 		return codSurname;
 	}
 
+	//methods that return a cod of three letter from a name string with the use of specific rules
 	public static String nameGenerator(String name) {
 		// Attributes
 		int nameLength = name.length();
@@ -113,12 +115,111 @@ public class CodeGenerator {
 		return codName;
 	}
 
-	public static String yearGenerator(String bdate) {
-
+	//1999-12-17
+	public static Integer yearGenerator(String value) {
+		value = value.substring(2, 4);
+		int year = 0;
+		
+		try {
+			year = Integer.parseInt(value);
+			return year;
+        }
+        catch (NumberFormatException e) { 
+            // This is thrown when the String
+            // contains characters other than digits
+            System.out.println("Invalid String");
+        }
+		
 		return null;	
 	}
 	
+	//methods that return a specific char for the moth of bith date
+	public static String monthGenerator(String value) {
+		value = value.substring(5, 7);
+		
+		try {
+			int temp = Integer.parseInt(value); //convert the string like 01 or 11 in a int for the switch
+			switch (temp) {
+				case 1: {
+					//January
+					return "A";
+				}
+				case 2: {
+					//February
+					return "B";
+				}
+				case 3: {
+					//March
+					return "C";
+				}
+				case 4: {
+					//April
+					return "D";
+				}
+				case 5: {
+					//May
+					return "E";
+				}
+				case 6: {
+					//June
+					return "H";
+				}
+				case 7: {
+					//July
+					return "L";
+				}
+				case 8: {
+					//August
+					return "M";
+				}
+				case 9: {
+					//September
+					return "P";
+				}
+				case 10: {
+					//October
+					return "R";
+				}
+				case 11: {
+					//November
+					return "S";
+				}
+				case 12: {
+					//September
+					return "T";
+				}
+				default: 
+					return null;
+			}
+		}
+        catch (NumberFormatException e) { 
+            // This is thrown when the String
+            // contains characters other than digits
+            System.out.println("Invalid String");
+        }
+		
+		return null;	
+	}
 	
+	//method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the day of birth date and the gender of the person
+	public static Integer dayGenerator(String value, String gender) {
+		value = value.substring(8);
+		Integer valueInt = Integer.parseInt(value);
+		String regex_vowels = "[FM]";
+		if (valueInt <= 0 || valueInt > 31) {
+			return null;
+		}
+		//check if gender is one char and is F or M
+		if (gender.length()==1 && Pattern.matches(regex_vowels, gender)) {
+			if (gender == "F") {
+				valueInt = valueInt + 40;
+			}
+			return valueInt;
+		}
+		return null;	
+	}
+	
+	//method to split a word in an array of vowels or consonants
 	private static ArrayList<String> splitVowelsConsonants(boolean vowelsOrConsonant, String word) {
 
 		ArrayList<String> vowels = new ArrayList<String>(null);

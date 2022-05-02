@@ -21,8 +21,8 @@ package it.unibs.fp.codiceFiscale;
 public class FiscalCode {
 	
 	//Attributes
-	private String name,surname,birthCodPlace,controlCharacter;
-	private int birthYearDate, birthMonthDate, birthDayDate;
+	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code;
+	private Integer birthYearDate, birthDayDate;
 	
 	//constructor
 	
@@ -36,6 +36,12 @@ public class FiscalCode {
 	}
 	public String getSurname() {
 		return surname;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public void setSurname(String surname) {
 		this.surname = surname;
@@ -52,26 +58,26 @@ public class FiscalCode {
 	public void setControlCharacter(String controlCharacter) {
 		this.controlCharacter = controlCharacter;
 	}
-	public int getBirthYearDate() {
+	public Integer getBirthYearDate() {
 		return birthYearDate;
 	}
 	public void setBirthYearDate(int birthYearDate) {
 		this.birthYearDate = birthYearDate;
 	}
-	public int getBirthMonthDate() {
+	public String getBirthMonthDate() {
 		return birthMonthDate;
 	}
-	public void setBirthMonthDate(int birthMonthDate) {
+	public void setBirthMonthDate(String birthMonthDate) {
 		this.birthMonthDate = birthMonthDate;
 	}
-	public int getBirthDayDate() {
+	public Integer getBirthDayDate() {
 		return birthDayDate;
 	}
 	public void setBirthDayDate(int birthDayDate) {
 		this.birthDayDate = birthDayDate;
 	}
 	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, int birthYearDate,
-			int birthMonthDate, int birthDayDate) {
+			String birthMonthDate, int birthDayDate) {
 		super();
 		this.name = name;
 		this.surname = surname;

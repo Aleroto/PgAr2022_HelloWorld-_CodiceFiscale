@@ -22,6 +22,10 @@ public class UI {
 			//check if the fiscal code is empty or not
 			if (fc.equals(null)) {
 				fc.setSurname(CodeGenerator.surnameGenerator(person.getSurname()));
+				fc.setName(CodeGenerator.nameGenerator(person.getName()));
+				fc.setBirthYearDate(CodeGenerator.yearGenerator(person.getBirthDate()));
+				fc.setBirthMonthDate(CodeGenerator.monthGenerator(person.getBirthDate()));
+				fc.setBirthDayDate(CodeGenerator.dayGenerator(person.getBirthDate(), person.getGender()));
 			}
 		}
 		
