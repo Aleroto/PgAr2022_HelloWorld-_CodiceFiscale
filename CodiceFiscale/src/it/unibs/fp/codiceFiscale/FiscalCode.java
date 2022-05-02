@@ -24,6 +24,9 @@ public class FiscalCode {
 	private String name,surname,birthCodPlace,controlCharacter;
 	private int birthYearDate, birthMonthDate, birthDayDate;
 	
+	//constructor
+	
+	
 	//Getter and Setter
 	public String getName() {
 		return name;

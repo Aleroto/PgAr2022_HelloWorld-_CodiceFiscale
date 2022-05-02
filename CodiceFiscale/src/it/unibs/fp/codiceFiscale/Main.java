@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		XML.readerXML();
+		XML.printXML();
 		//XML.prova2();
 		
 	}
