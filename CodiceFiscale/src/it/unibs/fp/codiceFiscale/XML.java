@@ -16,6 +16,8 @@ public class XML {
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String filePath = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
+	
+	private static ArrayList<String> names = new ArrayList<String>();
 
 
 	/*
@@ -65,7 +67,7 @@ public class XML {
 		  }
 	}
 	
-	public ArrayList<String> finder(String type){
+	public static ArrayList<String> finder(String type){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
 		ArrayList<String> value = new ArrayList<String>();
@@ -91,30 +93,28 @@ public class XML {
 		return value;
 	}
 	
-	private ArrayList<String> nameReader(){
-		ArrayList<String> names = new ArrayList<String>();
-		names = (ArrayList<String>) finder("name").clone();
-		System.out.println(names);
+	public static ArrayList<String> nameReader(){
+		ArrayList<String> names = (ArrayList<String>) finder("name");
 		return names;
 	}
-	private ArrayList<String> sournameReader(){
+	private static ArrayList<String> sournameReader(){
 		ArrayList<String> sournames = new ArrayList<String>();
 		return sournames = finder("cognome");
 	}
-	private ArrayList<String> genderReader(){
+	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
 		return genders = finder("sesso");
 	}
-	private ArrayList<String> birthPlaceReader(){
+	private static ArrayList<String> birthPlaceReader(){
 		ArrayList<String> birthPlaces = new ArrayList<String>();
 		return birthPlaces = finder("comune_nascita");
 	}
-	private ArrayList<String> birthDateReader(){
+	private static ArrayList<String> birthDateReader(){
 		ArrayList<String> birthDates = new ArrayList<String>();
 		return birthDates = finder("data_nascita");
 	}
 	
-	public ArrayList<Person> peopleReader() {
+	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
 			people.add(new Person(finder("name").get(i),finder("cognome").get(i),finder("sesso").get(i),null,null,null));
@@ -129,7 +129,7 @@ public class XML {
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}
-	private void print(ArrayList<String> nomi) {
+	private static void print(ArrayList<String> nomi) {
 		for(int i = 0; i<nomi.size();i++) {
 			System.out.println(nomi.get(i));
 		}

@@ -15,6 +15,16 @@ public class Person {
 	private String birthDate;
 	private FiscalCode fc;
 	
+	public Person(String name, String surname, String gender, HomeTown birthPlace, String birthDate, FiscalCode fc) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.gender = gender;
+		this.birthPlace = birthPlace;
+		this.birthDate = birthDate;
+		this.fc = fc;
+	}
+	
 	//Getter and Setter
 	public String getName() {
 		return name;
@@ -53,15 +63,7 @@ public class Person {
 		this.fc = fc;
 	}
 	
-	public Person(String name, String surname, String gender, HomeTown birthPlace, Date birthDate, FiscalCode fc) {
-		super();
-		this.name = name;
-		this.surname = surname;
-		this.gender = gender;
-		this.birthPlace = birthPlace;
-		this.birthDate = birthDate;
-		this.fc = fc;
-	}
+
 	
 	
 }

@@ -7,15 +7,12 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		
-		ArrayList<String> nomi = new ArrayList<String>();
-		XML proova = new XML();
-		
-		
-		System.out.println(proova.peopleReader());
-		proova.peopleReader();		
-		//XML.printXML();
-		
+		System.out.println(XML.finder("nome"));
+		System.out.println(XML.finder("cognome"));
+		System.out.println(XML.finder("sesso"));
+		System.out.println(XML.finder("data_nascita"));
+		System.out.println(XML.nameReader());
+		System.out.println(XML.peopleReader().get(5).getName());
 		
 	}
 	
