@@ -77,7 +77,7 @@ public class FiscalCode {
 		this.birthDayDate = birthDayDate;
 	}
 	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, int birthYearDate,
-			String birthMonthDate, int birthDayDate) {
+			String birthMonthDate, int birthDayDate, String code) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -86,6 +86,7 @@ public class FiscalCode {
 		this.birthYearDate = birthYearDate;
 		this.birthMonthDate = birthMonthDate;
 		this.birthDayDate = birthDayDate;
+		this.code = code;
 	}
 	
 	
