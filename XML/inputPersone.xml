@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persone numero="1000">
     <persona id="0">
-        <nome>ALESSANDRO</nome>
-        <cognome>VIGORELLI</cognome>
+        <nome>GIUSEPPE</nome>
+        <cognome>MUSSO</cognome>
         <sesso>M</sesso>
-        <comune_nascita>BRESCIA</comune_nascita>
-        <data_nascita>2001-12-22</data_nascita>
+        <comune_nascita>ALCARA LI FUSI</comune_nascita>
+        <data_nascita>1940-04-27</data_nascita>
     </persona>
     <persona id="1">
         <nome>MARIA</nome>
