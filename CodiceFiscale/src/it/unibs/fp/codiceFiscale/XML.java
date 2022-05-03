@@ -231,8 +231,6 @@ public class XML {
 	}
 		
 	
-	
-	
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}

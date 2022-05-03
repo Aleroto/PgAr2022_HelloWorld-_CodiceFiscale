@@ -34,8 +34,6 @@ public class Person {
 		System.out.println("\tSesso: " + gender);
 		System.out.println("\tData di nascita: "+birthDate);
 		birthPlace.printHomeTown();
-
-
 	}
 	
 	//Getter and Setter

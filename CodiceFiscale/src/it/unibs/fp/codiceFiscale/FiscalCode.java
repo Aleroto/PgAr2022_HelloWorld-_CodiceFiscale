@@ -21,8 +21,8 @@ package it.unibs.fp.codiceFiscale;
 public class FiscalCode {
 	
 	//Attributes
-	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code;
-	private Integer birthYearDate, birthDayDate;
+	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate;
+	private Integer birthDayDate;
 	
 	//constructor
 	
@@ -58,10 +58,10 @@ public class FiscalCode {
 	public void setControlCharacter(String controlCharacter) {
 		this.controlCharacter = controlCharacter;
 	}
-	public Integer getBirthYearDate() {
+	public String getBirthYearDate() {
 		return birthYearDate;
 	}
-	public void setBirthYearDate(int birthYearDate) {
+	public void setBirthYearDate(String birthYearDate) {
 		this.birthYearDate = birthYearDate;
 	}
 	public String getBirthMonthDate() {
@@ -76,7 +76,7 @@ public class FiscalCode {
 	public void setBirthDayDate(int birthDayDate) {
 		this.birthDayDate = birthDayDate;
 	}
-	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, int birthYearDate,
+	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, String birthYearDate,
 			String birthMonthDate, int birthDayDate, String code) {
 		super();
 		this.name = name;
