@@ -158,7 +158,7 @@ public class XML {
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
-			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),homeTownIdReader(birthPlaceReader().get(i)),finder("data_nascita").get(i),null));
+			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),homeTownIdReader(birthPlaceReader().get(i)),birthDateReader().get(i),null));
 		}
 		return people;
 	}
