@@ -204,7 +204,7 @@ public class CodeGenerator {
 		}
 		// check if gender is one char and is F or M
 		if (gender.length() == 1 && Pattern.matches(regex_vowels, gender)) {
-			if (gender == "F") {
+			if (gender.equals("F") ){
 				valueInt = valueInt + 40;
 			}
 			return valueInt;
@@ -219,7 +219,7 @@ public class CodeGenerator {
 		String charPosPari = "";
 		String charPosDispari = "";
 		int counter = 0;
-		for (int i = 0; i < finalCode.length(); i++) {
+		for (int i = 0; i < code.length(); i++) {
 			if (i % 2 == 0)
 				charPosDispari += code.charAt(i);
 			else
@@ -544,9 +544,9 @@ public class CodeGenerator {
 			for (int i = 0; i < word.length(); i++) {
 				String character = word.substring(i, i + 1);
 				// collect the char in a arraylist and check if there are consecutive duplicates
-				if (vowels.size() != 0 && character.equals(vowels.get(vowels.size() - 1))) {
+				/*if (vowels.size() != 0 && character.equals(vowels.get(vowels.size() - 1))) {
 					continue;
-				}
+				}*/
 				if (Pattern.matches(regex_vowels, character)) {
 					vowels.add(character);
 				}
@@ -557,14 +557,11 @@ public class CodeGenerator {
 			for (int i = 0; i < word.length(); i++) {
 				String character = word.substring(i, i + 1);
 				// collect the char in a arraylist and check if there are consecutive duplicates
-				if (consonants.size() > 0 && character.equals(consonants.get(consonants.size() - 1))) {
+				/*if (consonants.size() > 0 && character.equals(consonants.get(consonants.size() - 1))) {
 					continue;
-				}
+				}*/
 				if (!Pattern.matches(regex_vowels, character)) {
 					consonants.add(character);
-					/*
-					 * && consonants.get(consonants.size()-2) == consonants.get(consonants.size()-1)
-					 */
 				}
 			}
 		}
