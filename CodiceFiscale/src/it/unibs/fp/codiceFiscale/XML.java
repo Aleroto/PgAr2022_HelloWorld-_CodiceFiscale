@@ -28,7 +28,7 @@ public class XML {
 
 	
 	// stampa su terinale l'intero file XML (for development uses)
-	private static void printXML() {		
+	public static void printXML() {		
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
 		
@@ -85,6 +85,45 @@ public class XML {
 			  }
 			  if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == type) {
 				  stato = true;
+			  }
+			}
+		  } catch (Exception e) {
+			e.printStackTrace();
+		  }
+		return value;
+	}
+	
+	public static Person personFinder(String id){
+		XMLInputFactory xmlInputFactory = null;
+		XMLStreamReader xmlStreamReader  = null;
+		Person person = new Person(null,null,null,null,null,null);
+			
+		try {	
+			Reader fileReader = new FileReader(filePath);	//Read XML file.
+			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
+			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
+			boolean stato = false;
+			while(xmlStreamReader.hasNext()){			
+			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
+			  if(xmlEvent == XMLStreamConstants.START_ELEMENT ) {
+				  System.out.println("Tag " + xmlStreamReader.getLocalName());
+					 for (int i = 0; i < xmlStreamReader.getAttributeCount(); i++) {
+						 separatore();
+						 if(xmlStreamReader.getAttributeValue(i).equals(id)) {
+							 xmlEvent = xmlStreamReader.next();
+							 while(xmlEvent != XMLStreamConstants.END_ELEMENT) {
+								 
+								  if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == "nome") {									  
+									  stato = true;
+								  }
+								  if(stato) {
+									  person.setName(xmlStreamReader.getText());
+									  stato = false;
+								  }
+								 xmlEvent = xmlStreamReader.next();
+							 }
+						 }
+					 }
 			  }
 			}
 		  } catch (Exception e) {

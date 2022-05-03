@@ -7,12 +7,15 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
+		XML.printXML();
 		System.out.println(XML.finder("nome"));
 		System.out.println(XML.finder("cognome"));
 		System.out.println(XML.finder("sesso"));
 		System.out.println(XML.finder("data_nascita"));
 		System.out.println(XML.nameReader());
-		System.out.println(XML.peopleReader().get(5).getName());
+		
+		System.out.println(XML.personFinder("998").getName());
+
 		
 	}
 	
