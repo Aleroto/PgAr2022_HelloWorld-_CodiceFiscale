@@ -16,9 +16,6 @@ public class XML {
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String filePath = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
-	
-	private static ArrayList<String> names = new ArrayList<String>();
-
 
 	/*
 	 * Class to support the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
@@ -138,25 +135,28 @@ public class XML {
 	private static ArrayList<String> surnameReader(){
 		ArrayList<String> surnames = new ArrayList<String>();
 		surnames.addAll(finder("cognome"));
-		return surnames = finder("cognome");
+		return surnames;
 	}
 	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
-		return genders = finder("sesso");
+		genders.addAll(finder("sesso"));
+		return genders;
 	}
 	private static ArrayList<String> birthPlaceReader(){
 		ArrayList<String> birthPlaces = new ArrayList<String>();
-		return birthPlaces = finder("comune_nascita");
+		birthPlaces.addAll(finder("comune_nascita"));
+		return birthPlaces;
 	}
 	private static ArrayList<String> birthDateReader(){
 		ArrayList<String> birthDates = new ArrayList<String>();
-		return birthDates = finder("data_nascita");
+		birthDates.addAll(finder("data_nascita"));
+		return birthDates;
 	}
 	
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
-			people.add(new Person(finder("name").get(i),finder("cognome").get(i),finder("sesso").get(i),null,null,null));
+			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),null,null,null));
 		}
 		return people;
 	}
