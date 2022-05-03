@@ -17,7 +17,7 @@ public class UI {
 	public static void runProgram() {
 		people = XML.peopleReader();
 		/*
-		 * for (int i = 0; i < 999; i++) { people.add(XML.findPerson(i)); } //TODO Ale prova la differenza di tempo, con peopleReader è più veloce del finder. Altra cosa secondo te è corretto a linea 8 l'arraylist come statico. Ho dovuto metterlo altrimenti non riuscivo  usare i metodi
+		 * for (int i = 0; i < 999; i++) { people.add(XML.findPerson(i)); } //TODO Ale prova la differenza di tempo, con peopleReader è più veloce del finder, con il finder poi non si sapeva la quantità di persone nel file e mettere 999 nel for non se po vede'. Altra cosa secondo te è corretto a linea 8 l'arraylist come statico. Ho dovuto metterlo altrimenti non riuscivo  usare i metodi
 		 */
 
 		fcGenerator(people);
