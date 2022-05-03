@@ -9,12 +9,14 @@ import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
- 
+
 
 public class XML {
 	private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
-	private static final String filePath = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
+	private static final String PATH_XML_COMUNI = "/XML/comuni.xml";
+	private static final String FILIPATCH_INPUT_PERSONE = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
+	private static final String FILIPATCH_COMUNI = PATH_USER_DIRECTORY + PATH_XML_COMUNI;
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
 
 	/*
@@ -31,7 +33,7 @@ public class XML {
 		
 		try {
 			//File Path		
-			Reader fileReader = new FileReader(filePath);	//Read XML file.
+			Reader fileReader = new FileReader(FILIPATCH_COMUNI);	//Read XML file.
 			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
 			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
 			
@@ -40,7 +42,7 @@ public class XML {
 			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
 			  switch(xmlEvent) {
 			  	case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento
-					 System.out.println("Start Read Doc " + filePath); break;
+					 System.out.println("Start Read Doc " + FILIPATCH_INPUT_PERSONE); break;
 				 case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
 					 System.out.println("Tag " + xmlStreamReader.getLocalName());
 					 for (int i = 0; i < xmlStreamReader.getAttributeCount(); i++) {
@@ -70,7 +72,7 @@ public class XML {
 		ArrayList<String> value = new ArrayList<String>();
 			
 		try {	
-			Reader fileReader = new FileReader(filePath);	//Read XML file.
+			Reader fileReader = new FileReader(FILIPATCH_INPUT_PERSONE);	//Read XML file.
 			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
 			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
 			boolean stato = false;
@@ -96,7 +98,7 @@ public class XML {
 		
 		try {
 			//File Path		
-			Reader fileReader = new FileReader(filePath);	//Read XML file.
+			Reader fileReader = new FileReader(FILIPATCH_INPUT_PERSONE);	//Read XML file.
 			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
 			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
 			
@@ -156,16 +158,56 @@ public class XML {
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
-			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),null,null,null));
+			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),null,finder("data_nascita").get(i),null));
 		}
 		return people;
 	}
 	
 	public static Person findPerson(Integer id) {
 		String idString =id.toString();
-		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),null,null,null);
+		HomeTown homeTown = new HomeTown(personTagFinder(idString,"comune_nascita"),null);
+		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),
+									homeTown,personTagFinder(idString,"data_nascita"),null);
 		return person;
 	}
+	
+	
+	public static HomeTown homeTownIdReader(String comune) {
+		XMLInputFactory xmlInputFactory = null;
+		XMLStreamReader xmlStreamReader  = null;		
+		try {	
+			Reader fileReader = new FileReader(FILIPATCH_COMUNI);	//Read XML file.
+			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
+			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
+			boolean stato = false;
+			while(xmlStreamReader.hasNext()){			
+			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.	  
+			   
+			  if(stato) {
+				  //xmlStreamReader.next();
+				  System.out.println("ok");
+				  //System.out.println(xmlStreamReader.getText());
+				  /*for(int i = 0; i < 5; i++) {
+					  xmlStreamReader.next();
+				  }*/
+				  System.out.println( xmlStreamReader.getText());
+				  if( xmlStreamReader.getText() ==comune) {
+					  System.out.println("OKII");
+					  return new HomeTown(comune,null);
+				  }
+				  stato = false;
+			  }
+			 if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == "nome") {
+				  stato = true;
+			  }
+			 
+			}
+		  } catch (Exception e) {
+			e.printStackTrace();
+		  }
+		return null;
+	}
+		
 	
 	
 	
