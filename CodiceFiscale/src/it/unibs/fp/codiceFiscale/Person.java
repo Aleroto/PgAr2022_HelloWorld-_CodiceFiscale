@@ -32,6 +32,8 @@ public class Person {
 		System.out.println("\tNome: " + name);
 		System.out.println("\tCognome: " + surname);
 		System.out.println("\tSesso: " + gender);
+		System.out.println("\tData di nascita: "+birthDate);
+		birthPlace.printHomeTown();
 
 
 	}

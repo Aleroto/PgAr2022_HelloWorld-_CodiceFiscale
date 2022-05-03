@@ -12,12 +12,8 @@ public class Main {
 		Person person = new Person(0,null,null,null,null,null,null);
 		person = XML.findPerson(998);
 		
-		//person.printPerson();
-		
-		HomeTown homeTown = new HomeTown(null,null);
-		//XML.printXML();
-		homeTown = XML.homeTownIdReader("MOSSO");
-		homeTown.printHomeTown();
+		person = XML.peopleReader().get(10);
+		person.printPerson();
 		
 		
 		

@@ -158,16 +158,15 @@ public class XML {
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
-			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),null,finder("data_nascita").get(i),null));
+			people.add(new Person(i,nameReader().get(i),surnameReader().get(i),genderReader().get(i),homeTownIdReader(birthPlaceReader().get(i)),finder("data_nascita").get(i),null));
 		}
 		return people;
 	}
 	
 	public static Person findPerson(Integer id) {
 		String idString =id.toString();
-		HomeTown homeTown = new HomeTown(personTagFinder(idString,"comune_nascita"),null);
 		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),
-									homeTown,personTagFinder(idString,"data_nascita"),null);
+				homeTownIdReader(personTagFinder(idString,"comune_nascita")),personTagFinder(idString,"data_nascita"),null);
 		return person;
 	}
 	
@@ -184,16 +183,11 @@ public class XML {
 			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.	  
 			   
 			  if(stato) {
-				  //xmlStreamReader.next();
-				  System.out.println("ok");
-				  //System.out.println(xmlStreamReader.getText());
-				  /*for(int i = 0; i < 5; i++) {
-					  xmlStreamReader.next();
-				  }*/
-				  System.out.println( xmlStreamReader.getText());
-				  if( xmlStreamReader.getText() ==comune) {
-					  System.out.println("OKII");
-					  return new HomeTown(comune,null);
+				  if( xmlStreamReader.getText().equals(comune)) {
+					  for(int i = 0; i < 4;i++) {
+						  xmlStreamReader.next();
+					  }
+					  return new HomeTown(comune,xmlStreamReader.getText());
 				  }
 				  stato = false;
 			  }
