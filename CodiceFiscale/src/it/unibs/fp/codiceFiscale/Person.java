@@ -10,13 +10,15 @@ package it.unibs.fp.codiceFiscale;
 public class Person {
 	
 	//Attributes
+	private int id;
 	private String name,surname, gender;
 	private HomeTown birthPlace;
 	private String birthDate;
 	private FiscalCode fc;
 	
-	public Person(String name, String surname, String gender, HomeTown birthPlace, String birthDate, FiscalCode fc) {
+	public Person(int id,String name, String surname, String gender, HomeTown birthPlace, String birthDate, FiscalCode fc) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.surname = surname;
 		this.gender = gender;
@@ -25,7 +27,22 @@ public class Person {
 		this.fc = fc;
 	}
 	
+	public void printPerson() {
+		System.out.println("Person ID: " + id);
+		System.out.println("\tNome: " + name);
+		System.out.println("\tCognome: " + surname);
+		System.out.println("\tSesso: " + gender);
+
+
+	}
+	
 	//Getter and Setter
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
@@ -62,6 +79,8 @@ public class Person {
 	public void setFc(FiscalCode fc) {
 		this.fc = fc;
 	}
+	
+	
 	
 
 	

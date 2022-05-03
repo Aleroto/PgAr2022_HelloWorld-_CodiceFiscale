@@ -93,52 +93,52 @@ public class XML {
 		return value;
 	}
 	
-	public static Person personFinder(String id){
+	private static String personTagFinder(String id,String tag){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
-		Person person = new Person(null,null,null,null,null,null);
-			
-		try {	
+		
+		try {
+			//File Path		
 			Reader fileReader = new FileReader(filePath);	//Read XML file.
 			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
 			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
-			boolean stato = false;
-			while(xmlStreamReader.hasNext()){			
+			
+			//Iterate through events.
+			while(xmlStreamReader.hasNext()){
 			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
-			  if(xmlEvent == XMLStreamConstants.START_ELEMENT ) {
-				  System.out.println("Tag " + xmlStreamReader.getLocalName());
-					 for (int i = 0; i < xmlStreamReader.getAttributeCount(); i++) {
-						 separatore();
-						 if(xmlStreamReader.getAttributeValue(i).equals(id)) {
-							 xmlEvent = xmlStreamReader.next();
-							 while(xmlEvent != XMLStreamConstants.END_ELEMENT) {
-								 
-								  if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == "nome") {									  
-									  stato = true;
-								  }
-								  if(stato) {
-									  person.setName(xmlStreamReader.getText());
-									  stato = false;
-								  }
-								 xmlEvent = xmlStreamReader.next();
-							 }
+			  if(xmlEvent == XMLStreamConstants.START_ELEMENT) {
+				 for (int i = 0; i < xmlStreamReader.getAttributeCount(); i++) {
+					 if(xmlStreamReader.getAttributeValue(0).equals(id)) {
+						 boolean stato = false;
+						 for(int j = 0; j< 19;j++) {
+							 xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
+							 if(stato) {
+								 String text = xmlStreamReader.getText();
+								  return text;
+							  }
+							  if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == tag) {
+								  stato = true;
+							  }
 						 }
-					 }
+					 }					 
+				}
 			  }
 			}
 		  } catch (Exception e) {
 			e.printStackTrace();
 		  }
-		return value;
+		return null;
 	}
 	
 	public static ArrayList<String> nameReader(){
-		ArrayList<String> names = (ArrayList<String>) finder("name");
+		ArrayList<String> names = new ArrayList<String>();
+		names.addAll(finder("nome"));
 		return names;
 	}
-	private static ArrayList<String> sournameReader(){
-		ArrayList<String> sournames = new ArrayList<String>();
-		return sournames = finder("cognome");
+	private static ArrayList<String> surnameReader(){
+		ArrayList<String> surnames = new ArrayList<String>();
+		surnames.addAll(finder("cognome"));
+		return surnames = finder("cognome");
 	}
 	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
@@ -161,19 +161,16 @@ public class XML {
 		return people;
 	}
 	
-	
+	public static Person findPerson(Integer id) {
+		String idString =id.toString();
+		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),null,null,null);
+		return person;
+	}
 	
 	
 	
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}
-	private static void print(ArrayList<String> nomi) {
-		for(int i = 0; i<nomi.size();i++) {
-			System.out.println(nomi.get(i));
-		}
-	}
 	
-	
-
 }
