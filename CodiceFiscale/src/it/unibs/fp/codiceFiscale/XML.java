@@ -15,8 +15,10 @@ public class XML {
 	private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String PATH_XML_COMUNI = "/XML/comuni.xml";
+	private static final String PATH_XML_CODICI_FISCALI = "/XML/codiciFiscali.xml";
 	private static final String FILIPATCH_INPUT_PERSONE = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String FILIPATCH_COMUNI = PATH_USER_DIRECTORY + PATH_XML_COMUNI;
+	private static final String FILIPATCH_CODICI_FISCALI = PATH_USER_DIRECTORY + PATH_XML_CODICI_FISCALI;
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
 
 	/*
@@ -200,6 +202,32 @@ public class XML {
 			e.printStackTrace();
 		  }
 		return null;
+	}
+	
+	public static ArrayList<String> fiscalCodeReader(){
+		XMLInputFactory xmlInputFactory = null;
+		XMLStreamReader xmlStreamReader  = null;
+		ArrayList<String> value = new ArrayList<String>();
+			
+		try {	
+			Reader fileReader = new FileReader(FILIPATCH_CODICI_FISCALI);	//Read XML file.
+			xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
+			xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
+			boolean stato = false;
+			while(xmlStreamReader.hasNext()){			
+			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
+			  if(stato) {
+				  value.add(xmlStreamReader.getText());
+				  stato = false;
+			  }
+			  if(xmlEvent == XMLStreamConstants.START_ELEMENT && xmlStreamReader.getLocalName() == "codice") {
+				  stato = true;
+			  }
+			}
+		  } catch (Exception e) {
+			e.printStackTrace();
+		  }
+		return value;
 	}
 		
 	

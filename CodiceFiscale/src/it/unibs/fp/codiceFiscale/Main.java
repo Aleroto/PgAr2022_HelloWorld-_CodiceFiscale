@@ -12,9 +12,10 @@ public class Main {
 		Person person = new Person(0,null,null,null,null,null,null);
 		person = XML.findPerson(998);
 		
-		person = XML.peopleReader().get(10);
+		//person = XML.peopleReader().get(10);
 		person.printPerson();
 		
+		System.out.println(XML.fiscalCodeReader());
 		
 		
 		
