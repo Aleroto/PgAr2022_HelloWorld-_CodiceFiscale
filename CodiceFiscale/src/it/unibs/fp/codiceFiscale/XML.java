@@ -68,6 +68,7 @@ public class XML {
 		  }
 	}
 	
+	//acquisisce tutti i valori di un tag dato in un arralist
 	public static ArrayList<String> finder(String type){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -94,6 +95,7 @@ public class XML {
 		return value;
 	}
 	
+	//acquisisce il valore di un tag di una persona dato nome tag e id persona
 	private static String personTagFinder(String id,String tag){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -130,33 +132,37 @@ public class XML {
 		  }
 		return null;
 	}
-	
+	//genera un arraylist con tutti i nomi presenti nel file XML
 	public static ArrayList<String> nameReader(){
 		ArrayList<String> names = new ArrayList<String>();
 		names.addAll(finder("nome"));
 		return names;
 	}
+	//genera un arraylist con tutti i cognomi presenti nel file XML
 	private static ArrayList<String> surnameReader(){
 		ArrayList<String> surnames = new ArrayList<String>();
 		surnames.addAll(finder("cognome"));
 		return surnames;
 	}
+	//genera un arraylist con tutti i generi presenti nel file XML
 	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
 		genders.addAll(finder("sesso"));
 		return genders;
 	}
+	//genera un arraylist con tutti i luoghi di nascita presenti nel file XML
 	private static ArrayList<String> birthPlaceReader(){
 		ArrayList<String> birthPlaces = new ArrayList<String>();
 		birthPlaces.addAll(finder("comune_nascita"));
 		return birthPlaces;
 	}
+	//genera un arraylist con tutte le date di nascita presenti nel file XML
 	private static ArrayList<String> birthDateReader(){
 		ArrayList<String> birthDates = new ArrayList<String>();
 		birthDates.addAll(finder("data_nascita"));
 		return birthDates;
 	}
-	
+	//genera un arraylist di Person con tutte le persone presenti nel file XML
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
@@ -164,7 +170,7 @@ public class XML {
 		}
 		return people;
 	}
-	
+	//acquisisce una persona dal file XML dato l'id
 	public static Person findPerson(Integer id) {
 		String idString =id.toString();
 		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),
@@ -172,7 +178,7 @@ public class XML {
 		return person;
 	}
 	
-	
+	//genera HomeTown dato il nome di un comune
 	public static HomeTown homeTownIdReader(String comune) {
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;		
@@ -203,7 +209,7 @@ public class XML {
 		  }
 		return null;
 	}
-	
+	//genera un arraylist di codici fiscali presenti nel file XML
 	public static ArrayList<String> fiscalCodeReader(){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -230,7 +236,7 @@ public class XML {
 		return value;
 	}
 		
-	
+	//stampa un separatore di riga
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}

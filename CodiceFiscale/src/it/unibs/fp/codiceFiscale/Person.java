@@ -34,6 +34,7 @@ public class Person {
 		System.out.println("\tSesso: " + gender);
 		System.out.println("\tData di nascita: "+birthDate);
 		birthPlace.printHomeTown();
+		fc.printFiscalCode();
 	}
 	
 	//Getter and Setter

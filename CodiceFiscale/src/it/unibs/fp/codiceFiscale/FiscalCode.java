@@ -25,8 +25,32 @@ public class FiscalCode {
 	private Integer birthDayDate;
 	
 	//constructor
-	
-	
+	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, String birthYearDate,
+			String birthMonthDate, int birthDayDate, String code) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.birthCodPlace = birthCodPlace;
+		this.controlCharacter = controlCharacter;
+		this.birthYearDate = birthYearDate;
+		this.birthMonthDate = birthMonthDate;
+		this.birthDayDate = birthDayDate;
+		this.code = code;
+	}
+	public void printFiscalCode() {
+		System.out.println("\tCodice fiscale: "+code);
+	}
+	public void printFiscalCodeAndSubString(){
+		System.out.println("\tCod. nome codic fiscale: " + name);
+		System.out.println("\tCod. cognome codic fiscale: " + surname);
+		System.out.println("\tCod. giorno di nascita codic fiscale: " + birthDayDate);
+		System.out.println("\tCod. mese di nascita codic fiscale: " + birthMonthDate);
+		System.out.println("\tCod. anno di nascita codic fiscale: " + birthYearDate);	
+		System.out.println("\tCod. luogo di nascita codic fiscale: " + birthCodPlace);
+		System.out.println("\tCod. carattere di controllo codic fiscale: " + controlCharacter);
+		System.out.println("\tCodic fiscale: " + code);
+
+	}
 	//Getter and Setter
 	public String getName() {
 		return name;
@@ -76,18 +100,7 @@ public class FiscalCode {
 	public void setBirthDayDate(int birthDayDate) {
 		this.birthDayDate = birthDayDate;
 	}
-	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, String birthYearDate,
-			String birthMonthDate, int birthDayDate, String code) {
-		super();
-		this.name = name;
-		this.surname = surname;
-		this.birthCodPlace = birthCodPlace;
-		this.controlCharacter = controlCharacter;
-		this.birthYearDate = birthYearDate;
-		this.birthMonthDate = birthMonthDate;
-		this.birthDayDate = birthDayDate;
-		this.code = code;
-	}
+
 	
 	
 }
