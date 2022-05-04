@@ -21,12 +21,11 @@ package it.unibs.fp.codiceFiscale;
 public class FiscalCode {
 	
 	//Attributes
-	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate;
-	private Integer birthDayDate;
+	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate, birthDayDate;
 	
 	//constructor
 	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, String birthYearDate,
-			String birthMonthDate, int birthDayDate, String code) {
+			String birthMonthDate, String birthDayDate, String code) {
 		super();
 		this.name = name;
 		this.surname = surname;
@@ -94,10 +93,10 @@ public class FiscalCode {
 	public void setBirthMonthDate(String birthMonthDate) {
 		this.birthMonthDate = birthMonthDate;
 	}
-	public Integer getBirthDayDate() {
+	public String getBirthDayDate() {
 		return birthDayDate;
 	}
-	public void setBirthDayDate(int birthDayDate) {
+	public void setBirthDayDate(String birthDayDate) {
 		this.birthDayDate = birthDayDate;
 	}
 

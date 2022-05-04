@@ -195,7 +195,7 @@ public class CodeGenerator {
 
 	// method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the
 	// day of birth date and the gender of the person
-	public static Integer dayGenerator(String value, String gender) {
+	public static String dayGenerator(String value, String gender) {
 		value = value.substring(8);
 		Integer valueInt = Integer.parseInt(value);
 		String regex_vowels = "[FM]";
@@ -207,7 +207,13 @@ public class CodeGenerator {
 			if (gender.equals("F") ){
 				valueInt = valueInt + 40;
 			}
-			return valueInt;
+			if (valueInt>0 && valueInt<10) {
+				value = "0" + valueInt.toString();
+			}else {
+				value = valueInt.toString();
+			}
+			
+			return value;
 		}
 		return null;
 	}

@@ -41,7 +41,7 @@ public class UI {
 		}
 		// see the person in the list of people
 		for (Person person : people) {
-			FiscalCode fc = new FiscalCode(null, null, null, null, null, null, 0, null);
+			FiscalCode fc = new FiscalCode(null, null, null, null, null, null, null, null);
 			// check if the fiscal code is empty or not
 			fc.setSurname(CodeGenerator.surnameGenerator(person.getSurname()));
 			fc.setName(CodeGenerator.nameGenerator(person.getName()));
@@ -51,7 +51,7 @@ public class UI {
 			fc.setBirthCodPlace(person.getBirthPlace().getCode());
 
 			String codeTemp = fc.getSurname() + fc.getName() + fc.getBirthYearDate() + fc.getBirthMonthDate()
-					+ fc.getBirthDayDate().toString() + fc.getBirthCodPlace();
+					+ fc.getBirthDayDate() + fc.getBirthCodPlace();
 
 			fc.setControlCharacter(CodeGenerator.controlCharacter(codeTemp));
 			// set the code attributes that is all the part of the fiscal code togheter
@@ -69,7 +69,7 @@ public class UI {
 		}
 		// see the person in the list of people
 		
-		FiscalCode fc = new FiscalCode(null, null, null, null, null, null, 0, null);
+		FiscalCode fc = new FiscalCode(null, null, null, null, null, null, null, null);
 		// check if the fiscal code is empty or not
 		fc.setSurname(CodeGenerator.surnameGenerator(person.getSurname()));
 		fc.setName(CodeGenerator.nameGenerator(person.getName()));
