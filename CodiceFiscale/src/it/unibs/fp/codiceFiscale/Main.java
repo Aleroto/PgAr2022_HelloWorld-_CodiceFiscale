@@ -9,6 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 
 		UI.runProgram();
+
 		
 		 //String cf = "NTOCSR44E29E031E";
 		
@@ -17,7 +18,5 @@ public class Main {
 		//boolean stato = UI.fcChecker(cf);
 		
 		//System.out.print(num);
-		
-		
 	}
 }

@@ -1,14 +1,19 @@
 package it.unibs.fp.codiceFiscale;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.Reader;
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
+import javax.xml.stream.XMLStreamWriter;
+
 import java.util.ArrayList;
+import java.io.FileOutputStream;
 
 
 /**
@@ -20,6 +25,7 @@ public class XML {
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String PATH_XML_COMUNI = "/XML/comuni.xml";
 	private static final String PATH_XML_CODICI_FISCALI = "/XML/codiciFiscali.xml";
+	private static final String PATH_FILE_DESTINATION = "/XML/Risultati/";
 	private static final String FILIPATCH_INPUT_PERSONE = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String FILIPATCH_COMUNI = PATH_USER_DIRECTORY + PATH_XML_COMUNI;
 	private static final String FILIPATCH_CODICI_FISCALI = PATH_USER_DIRECTORY + PATH_XML_CODICI_FISCALI;
@@ -283,8 +289,104 @@ public class XML {
 		  }
 		return value;
 	}
+
+
+	//verifica esistenza della cartella di destinazione
+	private static void directoryExisting() {
+		try {
+            File f = new File(PATH_USER_DIRECTORY+PATH_FILE_DESTINATION);
+            if (f.exists()) {
+            	f.mkdir();
+            	System.out.println("File created");
+            }
+            else
+                System.out.println("File already exists");
+        }
+        catch (Exception e) {
+            System.err.println(e);
+        }
+
+	}
+	public static void writeXML(ArrayList<Person> people, ArrayList<String> fc_invalid, ArrayList<String> fc_unmatched) {
+		directoryExisting();
+		XMLOutputFactory xmlof = null;
+		XMLStreamWriter xmlw = null;
+
+		Integer peopleSize = people.size();
+		Integer invalidSize = fc_invalid.size();
+		Integer unmatchedSize = fc_unmatched.size();	
 		
-	
+		try {
+			xmlof = XMLOutputFactory.newInstance();
+			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/Prova/text.xml"), "utf-8");
+			xmlw.writeStartDocument("utf-8", "1.0");
+			xmlw.writeStartElement("output"); // scrittura del tag radice [1]
+			//BLOCCO XML CON LE PERSONE, liverlli dei tag indicati con [x]
+			xmlw.writeStartElement("persone"); //[2]
+			xmlw.writeAttribute("numero", peopleSize.toString()); // attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di persone"); // scrittura di un commento
+			Integer count = null;
+			for (int i = 0; i < peopleSize; i++) {
+			count = i+1;
+			xmlw.writeStartElement("persona"); // scrittura del tag PERSONA [3]
+			xmlw.writeAttribute("id", count.toString()); // attributo 
+			xmlw.writeStartElement("nome"); // scrittura del tag NOME[4]
+			xmlw.writeCharacters(people.get(i).getName()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeStartElement("cognome"); // scrittura del tag COGNOME[4]
+			xmlw.writeCharacters(people.get(i).getSurname()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeStartElement("sesso"); // scrittura del tag SESSO[4]
+			xmlw.writeCharacters(people.get(i).getGender()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeStartElement("comune_nascita"); // scrittura del tag COMUNE_NASCITA[4]
+			xmlw.writeCharacters(people.get(i).getBirthPlace().getName()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeStartElement("data_nascita"); // scrittura del tag DATA_NASCITA[4]
+			xmlw.writeCharacters(people.get(i).getBirthDate()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeStartElement("codice_fiscale"); // scrittura del tag CODICE FISCALE[4]
+			xmlw.writeCharacters(people.get(i).getFc().getCode()); // valore contenuto nel tag
+			xmlw.writeEndElement(); // chiusura tag
+			xmlw.writeEndElement(); // chiusura tag
+			}
+			xmlw.writeEndElement(); //[2]
+			
+			//BLOCCO XML CON I CODICI, livelli dei tag indicati con [x]
+			xmlw.writeStartElement("codici"); //[2]
+			//BLOCCO XML CON I CODICI INVALIDI
+			xmlw.writeStartElement("invalidi"); //[3]
+			xmlw.writeAttribute("numero", invalidSize.toString()); // attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di codici fiscali invalidi"); // scrittura di un commento
+			for (String value : fc_invalid) {
+				xmlw.writeStartElement("codice"); // scrittura del tag codice nella sezione codici invalidi[4]
+				xmlw.writeCharacters(value); // valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+			}
+			xmlw.writeEndElement(); //[3]
+			
+			//BLOCCO XML CON I CODICI SPAIATI
+			xmlw.writeStartElement("spaiati"); //[3]
+			xmlw.writeAttribute("numero", unmatchedSize.toString()); // attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di codici fiscali spaiati"); // scrittura di un commento
+			for (String value : fc_unmatched) {
+				xmlw.writeStartElement("codice"); // scrittura del tag codice nella sezione codici invalidi[4]
+				xmlw.writeCharacters(value); // valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+			}
+			xmlw.writeEndElement(); //[3]
+			
+			xmlw.writeEndElement(); // [2]
+			xmlw.writeEndElement(); // chiusura della root [1]
+			xmlw.writeEndDocument(); // scrittura della fine del documento
+			xmlw.flush(); // svuota il buffer e procede alla scrittura
+			xmlw.close(); // chiusura del documento e delle risorse impiegate*/
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
 	/**
 	 * stampa un separatore di riga
 	 */
