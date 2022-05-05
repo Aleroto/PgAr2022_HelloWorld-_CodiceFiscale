@@ -48,8 +48,7 @@ public class UI {
 			  //genero i codici fiscali
 			  PersoFcGenerator(person);
 			  
-			  String s = person.getFc().getCode();
-		  	  System.out.println(s);
+		  	  System.out.println(person.getFc().getCode());
 
 			  //genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
