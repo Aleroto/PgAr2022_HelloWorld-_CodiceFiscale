@@ -1,5 +1,10 @@
 package it.unibs.fp.codiceFiscale;
 
+/**
+ * 
+ * 
+ *
+ */
 public class HomeTown {
 	//Attributes
 	private String name,code;

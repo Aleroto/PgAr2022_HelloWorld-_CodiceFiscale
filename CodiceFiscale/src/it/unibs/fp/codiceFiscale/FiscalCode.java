@@ -1,6 +1,6 @@
 package it.unibs.fp.codiceFiscale;
 
-/**
+/*/**
  * 
  *<h1>Fiscal Code</h1>
  *<p>This class is use to manage the different part of a fiscal code.</p>
@@ -18,10 +18,18 @@ package it.unibs.fp.codiceFiscale;
  *
  */
 
+/**
+ * 
+ * Class is use to manage the different part of a fiscal code
+ *
+ *FST-PLA-98-M-01-B157-E: surname(3), name(3), yearBirth(2), monthBirth(1), dayBirth(2), birthPlace(1 letter, 2 number), controlCharacter(1)
+ */
 public class FiscalCode {
 	
-	//Attributes
 	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate, birthDayDate;
+	
+	private static final String MSG_ASSENTE = "ASSENTE";
+
 	
 	//constructor
 	public FiscalCode(String name, String surname, String birthCodPlace, String controlCharacter, String birthYearDate,
@@ -37,7 +45,18 @@ public class FiscalCode {
 		this.code = code;
 	}
 	public void printFiscalCode() {
-		System.out.println("\tCodice fiscale: "+code);
+		System.out.println("\tCodice fiscale: "+ code);
+
+		/*
+		 if(incorrect == 0) {
+			System.out.println("\tCodice fiscale: "+ code);
+		}
+		else {
+			System.out.println("\tCodice fiscale: "+ MSG_ASSENTE);
+			incorrect = 0;
+		}	
+		 */
+		
 	}
 	public void printFiscalCodeAndSubString(){
 		System.out.println("\tCod. nome codic fiscale: " + name);

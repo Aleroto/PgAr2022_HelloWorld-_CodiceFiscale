@@ -1,12 +1,16 @@
 package it.unibs.fp.codiceFiscale;
 
-/**
+/*/**
  * 
  *<h1>Person class</h1>
  *<p>This class is use to collect the data of a person</p>
  *
  */
 
+/**
+ * 
+ *Class is use to collect the data of a person
+ */
 public class Person {
 	
 	//Attributes

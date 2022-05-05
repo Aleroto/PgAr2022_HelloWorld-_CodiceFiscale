@@ -5,37 +5,75 @@ import java.util.regex.*;
 import it.unibs.fp.Support.*;
 
 
-public class UI {
+/**
+ *  Class for Run program
+ */
 
-	private static final String FC_REGEX_EXPRESSION = "/^(?:[A-Z][AEIOU][AEIOUX]|[AEIOU]X{2}|[B-DF-HJ-NP-TV-Z]{2}[A-Z]){2}(?:[\\dLMNP-V]{2}(?:[A-EHLMPR-T](?:[04LQ][1-9MNP-V]|[15MR][\\dLMNP-V]|[26NS][0-8LMNP-U])|[DHPS][37PT][0L]|[ACELMRT][37PT][01LM]|[AC-EHLMPR-T][26NS][9V])|(?:[02468LNQSU][048LQU]|[13579MPRTV][26NS])B[26NS][9V])(?:[A-MZ][1-9MNP-V][\\dLMNP-V]{2}|[A-M][0L](?:[1-9MNP-V][\\dLMNP-V]|[0L][1-9MNP-V]))[A-Z]$/i";
+public class UI {
+	
+	public int incorrect = 0; //questo attributo lo possono modicare tutte le classi???????
+
+	private static final String FC_REGEX_EXPRESSION = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
+		
+	
 	private static ArrayList<Person> people = new ArrayList<Person>();
 	private ArrayList<FiscalCode> fcXml = new ArrayList<FiscalCode>(); // arraylist with fiscal code take from XML
 	private ArrayList<HomeTown> cities = new ArrayList<HomeTown>(); // arraylist with fiscal code take from XML //TODO lettura file xml dei comuni e importazione nell'arraylist
 	//TODO controllo codici fiscali presenti in people con quelli presenti in fcXml, assegnazione di un tag per capire se � corretto e presente, assente, sbagliato
 	//TODO parte finale di salvataggio in un xml diviso in due tag
-	//todo 
-	// method for run the main program in a user interface
+
+	
+	/**
+	 * method for run the main program in a user interface
+	 */
 	public static void runProgram() {
+				
+		//Genero e stampo tutte le informazioni delle persone
 		 for (int i = 0; i < 999; i++) { 
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
+			  
+			  //genero i codici fiscali
 			  PersoFcGenerator(person);
+			  
+			  //controllo che siano corretti/assenti/invalidi
+			  //fcChecker(fcXml,person.getFc(), i);
+
+			  //stampo a video tutto
 			  person.printPerson();	 
+			  			  
 		 }
 		 
 		/*
 		people = XML.peopleReader();
 
 		fcGenerator(people);
+=======
+		//people = XML.peopleReader();
+		
+		 for (int i = 0; i < 1000; i++) { 
+		  Person person = new Person(0,null,null,null,null,null,null);
+		  person = XML.findPerson(i);
+		  PersoFcGenerator(person);
+		  person.printPerson();
+		 
+		 } //TODO Ale prova la differenza di tempo, con peopleReader � pi� veloce del finder, con il finder poi non si sapeva la quantit� di persone nel file e mettere 999 nel for non se po vede'. Altra cosa secondo te � corretto a linea 8 l'arraylist come statico. Ho dovuto metterlo altrimenti non riuscivo  usare i metodi
+		
+		 
+		/*fcGenerator(people);
 		for (Person person : people) {
 			person.printPerson();
 		}
-		*/
+	*/
 	}
 
 	
-	// method for generate all the fiscal code by data from the XML collect in the
-	// arraylist
+
+	/**
+	 * method for generate all the fiscal code by data from the XML collect in the arrayList
+	 * 
+	 * @param people ArrayList of person to create
+	 */
 	private static void fcGenerator(ArrayList<Person> people) {
 		// chack if the people list is null
 		if (people.equals(null)) {
@@ -64,6 +102,13 @@ public class UI {
 
 		Integer aspetto = null;
 	}
+	
+	
+	/**
+	 * method for generate Fiscal Code
+	 * 
+	 * @param person 
+	 */
 	private static void PersoFcGenerator(Person person) {
 		// check if the people list is null
 		if (people.equals(null)) {
@@ -91,35 +136,45 @@ public class UI {
 		
 	}
 	
-	//fcChecker 
-	public void fcChecker(ArrayList<FiscalCode> fcXml, ArrayList<FiscalCode> fcGnted){
-		int present = 0;
+	
+	
+	/**
+	 * method for check Fiscal Code
+	 * 
+	 * @param fcXml
+	 * @param fcGnted
+	 * @param i 
+	 */
+	public void fcChecker(ArrayList<FiscalCode> fcXml, ArrayList<FiscalCode> fcGnted, int i){
+		//int incorrect = 0;
 		int invalid = 0;		//numero invalidi
-		int unmatched = 0;		//numero spaiati
-		boolean correct = false;
-			
-
-		for(FiscalCode fc_generated: fcGnted){
-			for(FiscalCode fc_xml: fcXml ){
-				if(!(fcGnted.get(fc_generated).equals(fcXml.get(fc_xml)){
-						present = 1; //non tutti i codici fiscali sono presenti nel file xml
-						//scrivere su codiciPersone.xml che il Codice Fiscale è ASSENTE
-				}
-				else{
-					if(verifyFiscalCode() == false){
-						invalid++;
-						//lo aggiungo in sezione codici invalidi  su codiciPersone.xml 
-					}
-				}
+		//int unmatched = 0;		//numero spaiati
+		//boolean correct = false;
+		int fc_generated;
+		int fc_xml;
 				
-			}
+		
+		for(fc_xml = 0; fc_xml < fcXml.size(); fc_xml++ ){
+			if(!( fcGnted.get(i).getCode().equals((fcXml).get(fc_xml).getCode()) ) ) {
+					incorrect = 1;
+				}
+				else {
+					
+					if(verifyFiscalCode(fcGnted.get(i).getCode()) == false)
+						invalid++;
+				}
 			
 		}
 		
 	}
-
+					
 		
-	//Validità dei codici fiscali
+		
+	/**
+	 * method for verify fiscal code
+	 * @param fiscal_code
+	 * @return
+	 */
 	public static boolean verifyFiscalCode(String fiscal_code){
 		Pattern pattern = Pattern.compile(FC_REGEX_EXPRESSION);
 		Matcher matcher = pattern.matcher(fiscal_code);
@@ -127,8 +182,11 @@ public class UI {
 			return true;
 		else
 			return false;
+		
 	}
- }
+}
+
+
 
 
 

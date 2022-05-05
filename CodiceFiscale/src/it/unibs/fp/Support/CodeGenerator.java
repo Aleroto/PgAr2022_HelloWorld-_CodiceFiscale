@@ -5,10 +5,18 @@ import java.util.regex.*;
 import it.unibs.fp.codiceFiscale.HomeTown;
 import it.unibs.fp.codiceFiscale.Person;
 
+/**
+ * 
+ * 
+ * 
+ */
 public class CodeGenerator {
 
-	// methods that return a cod of three letter from a surname string with the use
-	// of specific rules
+
+	/**
+	 * methods that return a cod of three letter from a surname string with the use of specific rule
+	 * @param surname
+	 */
 	public static String surnameGenerator(String surname) {
 		// Attributes
 		int surnameLength = surname.length();
@@ -63,6 +71,13 @@ public class CodeGenerator {
 
 	// methods that return a cod of three letter from a name string with the use of
 	// specific rules
+	
+
+	/**
+	 * methods that return a cod of three letter from a name string with the use of specific rules
+	 * @param name
+	 * @return
+	 */
 	public static String nameGenerator(String name) {
 		// Attributes
 		int nameLength = name.length();
@@ -126,7 +141,13 @@ public class CodeGenerator {
 		return value;
 	}
 
-	// methods that return a specific char for the moth of bith date
+	
+	
+	/**
+	 * methods that return a specific char for the moth of birth date
+	 * @param value
+	 * @return
+	 */
 	public static String monthGenerator(String value) {
 		value = value.substring(5, 7);
 
@@ -195,6 +216,14 @@ public class CodeGenerator {
 
 	// method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the
 	// day of birth date and the gender of the person
+	
+	
+	/**
+	 * method that return a Integer between 1 and 31 or 41 and 71, represents the day of birth date and the gender of the person
+	 * @param value
+	 * @param gender
+	 * @return
+	 */
 	public static String dayGenerator(String value, String gender) {
 		value = value.substring(8);
 		Integer valueInt = Integer.parseInt(value);
@@ -538,7 +567,14 @@ public class CodeGenerator {
 		return finalCode;
 	}
 
-	// method to split a word in an array of vowels or consonants
+
+	
+	/**
+	 * method to split a word in an array of vowels or consonants
+	 * @param vowelsOrConsonant
+	 * @param word
+	 * @return
+	 */
 	private static ArrayList<String> splitVowelsConsonants(boolean vowelsOrConsonant, String word) {
 
 		ArrayList<String> vowels = new ArrayList<String>();

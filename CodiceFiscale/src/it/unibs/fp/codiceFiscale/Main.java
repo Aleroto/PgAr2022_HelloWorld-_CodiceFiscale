@@ -7,19 +7,16 @@ public class Main {
 	
 	
 	public static void main(String[] args) {
-		//XML.printXML();
-		
+
 		UI.runProgram();
 		
-		/*
-		Person person = new Person(0,null,null,null,null,null,null);
-		person = XML.findPerson(998);
+		 //String cf = "NTOCSR44E29E031E";
 		
-		//person = XML.peopleReader().get(10);
-		person.printPerson();
+		 //int num = UI.fcChecker(people, fcxml);
 		
-		System.out.println(XML.fiscalCodeReader());*/
+		//boolean stato = UI.fcChecker(cf);
 		
+		//System.out.print(num);
 		
 		
 	}

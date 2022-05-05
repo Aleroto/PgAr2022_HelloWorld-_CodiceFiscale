@@ -11,6 +11,10 @@ import javax.xml.stream.XMLStreamReader;
 import java.util.ArrayList;
 
 
+/**
+ * Class to support the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
+ * that return a generic arraylist with XML tag name associated *
+ */
 public class XML {
 	private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
@@ -21,14 +25,11 @@ public class XML {
 	private static final String FILIPATCH_CODICI_FISCALI = PATH_USER_DIRECTORY + PATH_XML_CODICI_FISCALI;
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
 
-	/*
-	 * Class to support the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
-	 * that return a generic arraylist with XML tag name associated
-	 */
-
-
 	
-	// stampa su terinale l'intero file XML (for development uses)
+	
+	/**
+	 * stampa su terminale l'intero file XML (for development uses)
+	 */ 
 	public static void printXML() {		
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -57,7 +58,7 @@ public class XML {
 					 break;
 				 case XMLStreamConstants.COMMENT:
 					 System.out.println("// commento " + xmlStreamReader.getText()); break; // commento: ne stampa il contenuto
-				 case XMLStreamConstants.CHARACTERS: // content all’interno di un elemento: stampa il testo
+				 case XMLStreamConstants.CHARACTERS: // content allï¿½interno di un elemento: stampa il testo
 					 if (xmlStreamReader.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
 					 System.out.println("-> " + xmlStreamReader.getText());
 					 break;
@@ -68,7 +69,11 @@ public class XML {
 		  }
 	}
 	
-	//acquisisce tutti i valori di un tag dato in un arralist
+	/**
+	 * acquisisce tutti i valori di un tag dato in un arraylist
+	 * @param type
+	 * @return
+	 */
 	public static ArrayList<String> finder(String type){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -95,7 +100,12 @@ public class XML {
 		return value;
 	}
 	
-	//acquisisce il valore di un tag di una persona dato nome tag e id persona
+	 /**
+	 * acquisisce il valore di un tag di una persona dato nome tag e id persona
+	 * @param id
+	 * @param tag
+	 * @return
+	 */
 	private static String personTagFinder(String id,String tag){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -132,37 +142,61 @@ public class XML {
 		  }
 		return null;
 	}
-	//genera un arraylist con tutti i nomi presenti nel file XML
+	
+	/**
+	 * genera un arraylist con tutti i nomi presenti nel file XML
+	 * @return
+	 */
 	public static ArrayList<String> nameReader(){
 		ArrayList<String> names = new ArrayList<String>();
 		names.addAll(finder("nome"));
 		return names;
 	}
-	//genera un arraylist con tutti i cognomi presenti nel file XML
+	
+	/**
+	 * genera un arraylist con tutti i cognomi presenti nel file XML
+	 * @return
+	 */
 	private static ArrayList<String> surnameReader(){
 		ArrayList<String> surnames = new ArrayList<String>();
 		surnames.addAll(finder("cognome"));
 		return surnames;
 	}
-	//genera un arraylist con tutti i generi presenti nel file XML
+	
+	/**
+	 * genera un arraylist con tutti i generi presenti nel file XML
+	 * @return
+	 */
 	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
 		genders.addAll(finder("sesso"));
 		return genders;
 	}
-	//genera un arraylist con tutti i luoghi di nascita presenti nel file XML
+	
+	/**
+	 * genera un arraylist con tutti i luoghi di nascita presenti nel file XML
+	 * @return
+	 */
 	private static ArrayList<String> birthPlaceReader(){
 		ArrayList<String> birthPlaces = new ArrayList<String>();
 		birthPlaces.addAll(finder("comune_nascita"));
 		return birthPlaces;
 	}
-	//genera un arraylist con tutte le date di nascita presenti nel file XML
+	
+	/**
+	 * genera un arraylist con tutte le date di nascita presenti nel file XML
+	 * @return
+	 */
 	private static ArrayList<String> birthDateReader(){
 		ArrayList<String> birthDates = new ArrayList<String>();
 		birthDates.addAll(finder("data_nascita"));
 		return birthDates;
 	}
-	//genera un arraylist di Person con tutte le persone presenti nel file XML
+	
+	/**
+	 * genera un arraylist di Person con tutte le persone presenti nel file XML
+	 * @return
+	 */
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
 		for(int i = 0; i < nameReader().size();i++) {
@@ -170,7 +204,12 @@ public class XML {
 		}
 		return people;
 	}
-	//acquisisce una persona dal file XML dato l'id
+	
+	/**
+	 * acquisisce una persona dal file XML dato l'id
+	 * @param id
+	 * @return
+	 */
 	public static Person findPerson(Integer id) {
 		String idString =id.toString();
 		Person person = new Person(id,personTagFinder(idString,"nome"),personTagFinder(idString,"cognome"),personTagFinder(idString,"sesso"),
@@ -178,7 +217,12 @@ public class XML {
 		return person;
 	}
 	
-	//genera HomeTown dato il nome di un comune
+	
+	/**
+	 * genera HomeTown dato il nome di un comune
+	 * @param comune
+	 * @return
+	 */
 	public static HomeTown homeTownIdReader(String comune) {
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;		
@@ -209,7 +253,11 @@ public class XML {
 		  }
 		return null;
 	}
-	//genera un arraylist di codici fiscali presenti nel file XML
+	
+	/**
+	 * genera un arraylist di codici fiscali presenti nel file XML
+	 * @return
+	 */
 	public static ArrayList<String> fiscalCodeReader(){
 		XMLInputFactory xmlInputFactory = null;
 		XMLStreamReader xmlStreamReader  = null;
@@ -236,7 +284,10 @@ public class XML {
 		return value;
 	}
 		
-	//stampa un separatore di riga
+	
+	/**
+	 * stampa un separatore di riga
+	 */
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}
