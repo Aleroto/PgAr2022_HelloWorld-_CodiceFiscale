@@ -23,7 +23,7 @@ public class UI {
 	private static ArrayList<String> fcXml = new ArrayList<String>(); // arraylist with fiscal code take from XML
 	private ArrayList<HomeTown> cities = new ArrayList<HomeTown>(); // arraylist with fiscal code take from XML 
 	
-	//public static ArrayList<String> fcXmlMatched = new ArrayList<String>();		//codici corretti
+	public static ArrayList<String> fcXmlMatched = new ArrayList<String>();		//codici corretti
 	public static ArrayList<String> fcXmlAbsent = new ArrayList<String>();
 	public static ArrayList<String> fcXmlInvalid = new ArrayList<String>();
 	public static ArrayList<String> fcXmlUnpaired = new ArrayList<String>();		//codici spaiati
@@ -31,7 +31,7 @@ public class UI {
 
 	
 	//TODO lettura file xml dei comuni e importazione nell'arraylist
-	//TODO controllo codici fiscali presenti in people con quelli presenti in fcXml, assegnazione di un tag per capire se � corretto e presente, assente, sbagliato
+	//TODO controllo codici fiscali presenti in people con quelli presenti in fcXml, assegnazione di un tag per capire se ? corretto e presente, assente, sbagliato
 	//TODO parte finale di salvataggio in un xml diviso in due tag
 
 	
@@ -47,32 +47,32 @@ public class UI {
 		 fcXml = XML.fiscalCodeReader();
 		 
 		 
-		 changeable = 999;
+		 //changeable = 999;
 		 
 		//Genero e stampo tutte le informazioni delle persone
-<<<<<<< HEAD
-		 for (int i = 0; i < changeable; i++) { 
-=======
-		 for (int i = 0; i < XML.attrieCount(); i++) { 
->>>>>>> 4df033fb722456574fcc714ec79c81fb9ed98fef
+		 for (int i = 0; i < 999; i++) { 
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
 			  
 			  //genero i codici fiscali
 			  PersoFcGenerator(person);
 			  
-		  	  System.out.println(person.getFc().getCode());
+			  String s = person.getFc().getCode();
+		  	  System.out.println(s);
 
 			  //genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
 			  
 			  	case MATCHED:		
-			  		fcXml.remove(i);
+			  		fcXmlMatched.add(person.getFc().getCode());
 			  		break;
 			  		
 			  	case ABSENT:
-			  		fcXmlAbsent.add(person.getFc().getCode());
-			  		//System.out.println("ASSENTE");
+					  if(verifyFiscalCode(person.getFc().getCode()))
+						  fcXmlUnpaired.add(person.getFc().getCode()); 	//spaiato
+					  else
+						  fcXmlInvalid.add(person.getFc().getCode()); 	//invalido
+				
 			  		break;
 			  		
 			  	default:
@@ -81,36 +81,38 @@ public class UI {
 			  
 			  //cambio cicli da fare ogni volta che tolgo un codice che è uguale 
 			  //a quello generato ed è presente anche in codiciFiscali.xml
-			  changeable = fcXml.size();
+			  //changeable = fcXml.size();
 			  
 			  //stampo a video tutto
 			  person.printPerson();	 
 			  			  
 		 }
+		  
+		 /*
+		 for(int i = 0; i < fcXmlUnpaired.size(); i++) {
+			 System.out.println("-----------SPAIATI------------");
+			 System.out.println(fcXmlUnpaired.get(i));
+			 }
+		 */
 		 
 		 
-		  //genero arraylist con fiscal code invalidi
-		  for(int j= 0; j < fcXml.size(); j++) {
-			  if(verifyFiscalCode(fcXml.get(j)))
-				  fcXmlUnpaired.add(fcXml.get(j));
-			  else
-				  fcXmlInvalid.add(fcXml.get(j));
-				  
-		  }
 		 
 		/*
 		people = XML.peopleReader();
 
-		 fcGenerator(people);
+		fcGenerator(people);
 
-		 people = XML.peopleReader();
+		//people = XML.peopleReader();
 		
 		 for (int i = 0; i < 1000; i++) { 
 		  Person person = new Person(0,null,null,null,null,null,null);
 		  person = XML.findPerson(i);
 		  PersoFcGenerator(person);
-		  person.printPerson();		 
-		 } 		 
+		  person.printPerson();
+		 
+		 } //TODO Ale prova la differenza di tempo, con peopleReader ? pi? veloce del finder, con il finder poi non si sapeva la quantit? di persone nel file e mettere 999 nel for non se po vede'. Altra cosa secondo te ? corretto a linea 8 l'arraylist come statico. Ho dovuto metterlo altrimenti non riuscivo  usare i metodi
+		
+		 
 		/*fcGenerator(people);
 		for (Person person : people) {
 			person.printPerson();
@@ -150,6 +152,8 @@ public class UI {
 			
 			person.setFc(fc);
 		}
+
+		Integer aspetto = null;
 	}
 	
 	
@@ -183,7 +187,9 @@ public class UI {
 		
 		person.setFc(fc);
 		
-	}	
+	}
+	
+	
 	
 	/**
 	 * method for check Fiscal Code
@@ -192,27 +198,14 @@ public class UI {
 	 * @param fcGnted
 	 */
 	public static Integer fcChecker(String fcGnted){
-
-		for(int fc_xml = 0; fc_xml < fcXml.size(); fc_xml++){
+		for(int fc_xml = 0; fc_xml < fcXml.size() ; fc_xml++){
 			
-<<<<<<< HEAD
 			if(fcGnted.equals(fcXml.get(fc_xml)))
 				return 0; //codice corretto
 		}
 		
-		return 1; // codice assente
+		return 1; // codice assente comprende quelli spaiati e quelli invalidi
 		
-=======
-			if(verifyFiscalCode(fcXml.get(fc_xml)) == true) {
-				if(fcGnted.equals(fcXml.get(fc_xml)))
-					return 0; //codice corretto
-			}
-			else {
-				return 2; // codice invalido
-			}
-		}		
-		return 1; // codice assente		
->>>>>>> 4df033fb722456574fcc714ec79c81fb9ed98fef
 	}
 					
 		
