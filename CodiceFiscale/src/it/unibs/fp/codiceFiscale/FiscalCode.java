@@ -26,6 +26,8 @@ public class FiscalCode {
 		this.birthDayDate = birthDayDate;
 		this.code = code;
 	}
+	
+	//stampa a terminale il codice fiscale (for development uses)
 	public void printFiscalCode() {
 		System.out.println("\tCodice fiscale: "+ code);
 
@@ -40,6 +42,7 @@ public class FiscalCode {
 		 */
 		
 	}
+	//stampa a terminale tutti gli attributi del cosice fiscale (for development uses)
 	public void printFiscalCodeAndSubString(){
 		System.out.println("\tCod. nome codic fiscale: " + name);
 		System.out.println("\tCod. cognome codic fiscale: " + surname);
