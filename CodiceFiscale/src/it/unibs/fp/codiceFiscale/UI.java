@@ -14,17 +14,20 @@ public class UI {
 	private static final String FC_REGEX_EXPRESSION = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
 	
 	
-	private static final int CORRECT = 0 ;
+	private static final int MATCHED = 0 ;		//codice generato esiste in xml
 	private static final int ABSENT = 1 ;		//assente
-	private static final int INVALID = 2 ;
+	//private static final int INVALID = 2 ;
 	
 	
 	private static ArrayList<Person> people = new ArrayList<Person>();
 	private static ArrayList<String> fcXml = new ArrayList<String>(); // arraylist with fiscal code take from XML
 	private ArrayList<HomeTown> cities = new ArrayList<HomeTown>(); // arraylist with fiscal code take from XML 
 	
+	//public static ArrayList<String> fcXmlMatched = new ArrayList<String>();		//codici corretti
 	public static ArrayList<String> fcXmlAbsent = new ArrayList<String>();
 	public static ArrayList<String> fcXmlInvalid = new ArrayList<String>();
+	public static ArrayList<String> fcXmlUnpaired = new ArrayList<String>();		//codici spaiati
+
 
 	
 	//TODO lettura file xml dei comuni e importazione nell'arraylist
@@ -37,11 +40,17 @@ public class UI {
 	 */
 	public static void runProgram() {
 				
+		 // "variabile cambio cicli" che varia in base alla rimozione dei codici fiscali nell'arrayList
+		 int changeable;
+		 
 		 //riempio arrayList con Codici Fiscali
 		 fcXml = XML.fiscalCodeReader();
 		 
+		 
+		 changeable = 999;
+		 
 		//Genero e stampo tutte le informazioni delle persone
-		 for (int i = 0; i < 999; i++) { 
+		 for (int i = 0; i < changeable; i++) { 
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
 			  
@@ -54,33 +63,37 @@ public class UI {
 			  //genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
 			  
-			  	case CORRECT:
-			  		//fcXml.remove(i);
+			  	case MATCHED:		
+			  		fcXml.remove(i);
 			  		break;
 			  		
 			  	case ABSENT:
 			  		fcXmlAbsent.add(person.getFc().getCode());
-			  		System.out.println("ASSENTE");
-
-			  		break;
-			  		
-			  	case INVALID:
-			  		fcXmlInvalid.add(person.getFc().getCode());
-			  		System.out.println("INVALIDO");
-
-			  		//fcXml.remove(i);
-
+			  		//System.out.println("ASSENTE");
 			  		break;
 			  		
 			  	default:
-		
-			  		
+			
 			  }
-
+			  
+			  //cambio cicli da fare ogni volta che tolgo un codice che è uguale 
+			  //a quello generato ed è presente anche in codiciFiscali.xml
+			  changeable = fcXml.size();
+			  
 			  //stampo a video tutto
 			  person.printPerson();	 
 			  			  
 		 }
+		 
+		 
+		  //genero arraylist con fiscal code invalidi
+		  for(int j= 0; j < fcXml.size(); j++) {
+			  if(verifyFiscalCode(fcXml.get(j)))
+				  fcXmlUnpaired.add(fcXml.get(j));
+			  else
+				  fcXmlInvalid.add(fcXml.get(j));
+				  
+		  }
 		 
 		/*
 		people = XML.peopleReader();
@@ -186,13 +199,8 @@ public class UI {
 
 		for(int fc_xml = 0; fc_xml < fcXml.size(); fc_xml++){
 			
-			if(verifyFiscalCode(fcXml.get(fc_xml)) == true) {
-				if(fcGnted.equals(fcXml.get(fc_xml)))
-					return 0; //codice corretto
-			}
-			else {
-				return 2; // codice invalido
-			}
+			if(fcGnted.equals(fcXml.get(fc_xml)))
+				return 0; //codice corretto
 		}
 		
 		return 1; // codice assente
