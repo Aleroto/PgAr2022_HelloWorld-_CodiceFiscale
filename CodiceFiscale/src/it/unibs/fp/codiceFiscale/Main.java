@@ -12,6 +12,8 @@ public class Main {
 
 		UI.runProgram();
 		
+		//System.out.println(XML.attrieCount());
+		
 		
 		
 		//String cf = "PLKVLN92L70D551G";

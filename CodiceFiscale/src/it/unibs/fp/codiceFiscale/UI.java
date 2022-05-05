@@ -50,15 +50,18 @@ public class UI {
 		 changeable = 999;
 		 
 		//Genero e stampo tutte le informazioni delle persone
+<<<<<<< HEAD
 		 for (int i = 0; i < changeable; i++) { 
+=======
+		 for (int i = 0; i < XML.attrieCount(); i++) { 
+>>>>>>> 4df033fb722456574fcc714ec79c81fb9ed98fef
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
 			  
 			  //genero i codici fiscali
 			  PersoFcGenerator(person);
 			  
-			  String s = person.getFc().getCode();
-		  	  System.out.println(s);
+		  	  System.out.println(person.getFc().getCode());
 
 			  //genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
@@ -98,19 +101,16 @@ public class UI {
 		/*
 		people = XML.peopleReader();
 
-		fcGenerator(people);
+		 fcGenerator(people);
 
-		//people = XML.peopleReader();
+		 people = XML.peopleReader();
 		
 		 for (int i = 0; i < 1000; i++) { 
 		  Person person = new Person(0,null,null,null,null,null,null);
 		  person = XML.findPerson(i);
 		  PersoFcGenerator(person);
-		  person.printPerson();
-		 
-		 } //TODO Ale prova la differenza di tempo, con peopleReader � pi� veloce del finder, con il finder poi non si sapeva la quantit� di persone nel file e mettere 999 nel for non se po vede'. Altra cosa secondo te � corretto a linea 8 l'arraylist come statico. Ho dovuto metterlo altrimenti non riuscivo  usare i metodi
-		
-		 
+		  person.printPerson();		 
+		 } 		 
 		/*fcGenerator(people);
 		for (Person person : people) {
 			person.printPerson();
@@ -150,8 +150,6 @@ public class UI {
 			
 			person.setFc(fc);
 		}
-
-		Integer aspetto = null;
 	}
 	
 	
@@ -185,9 +183,7 @@ public class UI {
 		
 		person.setFc(fc);
 		
-	}
-	
-	
+	}	
 	
 	/**
 	 * method for check Fiscal Code
@@ -199,12 +195,24 @@ public class UI {
 
 		for(int fc_xml = 0; fc_xml < fcXml.size(); fc_xml++){
 			
+<<<<<<< HEAD
 			if(fcGnted.equals(fcXml.get(fc_xml)))
 				return 0; //codice corretto
 		}
 		
 		return 1; // codice assente
 		
+=======
+			if(verifyFiscalCode(fcXml.get(fc_xml)) == true) {
+				if(fcGnted.equals(fcXml.get(fc_xml)))
+					return 0; //codice corretto
+			}
+			else {
+				return 2; // codice invalido
+			}
+		}		
+		return 1; // codice assente		
+>>>>>>> 4df033fb722456574fcc714ec79c81fb9ed98fef
 	}
 					
 		

@@ -1,6 +1,7 @@
 package it.unibs.fp.codiceFiscale;
 
 import java.io.File;
+
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.Reader;
@@ -385,8 +386,30 @@ public class XML {
 			e.printStackTrace();
 		}
 		
-		
 	}
+	
+	//ottiene il numero di persone all'interno dell'XML
+	public static int attrieCount(){
+			XMLInputFactory xmlInputFactory = null;
+			XMLStreamReader xmlStreamReader  = null;
+			int count = 0;
+				
+			try {	
+				Reader fileReader = new FileReader(FILIPATCH_CODICI_FISCALI);	//Read XML file.
+				xmlInputFactory = XMLInputFactory.newInstance();	//Get XMLInputFactory instance.			
+				xmlStreamReader  = xmlInputFactory.createXMLStreamReader(fileReader);	//Create XMLStreamReader object.
+				while(xmlStreamReader.hasNext()){		
+					if(xmlStreamReader.next() == XMLStreamConstants.START_ELEMENT) {
+						count++;
+					}
+
+				}
+			  } catch (Exception e) {
+				e.printStackTrace();
+				return -1;
+			  }
+			return count-1;
+		}
 	/**
 	 * stampa un separatore di riga
 	 */
