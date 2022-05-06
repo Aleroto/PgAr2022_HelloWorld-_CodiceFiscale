@@ -48,7 +48,7 @@ public class UI {
 		 
 		
 		//Genero e stampo tutte le informazioni delle persone
-		 for (int i = 0; i < 999; i++) { 
+		 for (int i = 0; i < XML.attributeCount(); i++) { 
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
 			  

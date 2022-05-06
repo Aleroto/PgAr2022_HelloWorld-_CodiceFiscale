@@ -393,7 +393,7 @@ public class XML {
 	/**
 	 * @return The number of people within the XML
 	 */
-	public static int attrieCount(){
+	public static int attributeCount(){
 			XMLInputFactory xmlInputFactory = null;
 			XMLStreamReader xmlStreamReader  = null;
 			int count = 0;
