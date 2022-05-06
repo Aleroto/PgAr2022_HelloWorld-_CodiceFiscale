@@ -209,7 +209,7 @@ public class CodeGenerator {
 		return null;
 	}
 
-	//Method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the
+	//Method that return a Integer between 1 and 31 or 41 and 71, represents the
 	//day of birth date and the gender of the person
 	
 	
