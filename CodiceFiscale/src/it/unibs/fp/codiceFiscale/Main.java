@@ -19,8 +19,7 @@ public class Main {
 		//String cf = "PLKVLN92L70D551G";
 		//System.out.print(UI.verifyFiscalCode(cf));
 
-		
-		
+	
 		 //int num = UI.fcChecker(people, fcxml);
 		//boolean stato = UI.fcChecker(cf);
 		

@@ -18,8 +18,8 @@ import java.io.FileOutputStream;
 
 
 /**
- * Class to support the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
- * that return a generic arraylist with XML tag name associated *
+ * Supports the read and write of GENERAL XML file, try to create a class to read different XML like inputPersone.xml and comuni.xml,
+ * that return a generic arrayList with XML tag name associated *
  */
 public class XML {
 	private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
@@ -33,9 +33,8 @@ public class XML {
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
 
 	
-	
 	/**
-	 * stampa su terminale l'intero file XML (for development uses)
+	 * Prints all the file XML (for development uses)
 	 */ 
 	public static void printXML() {		
 		XMLInputFactory xmlInputFactory = null;
@@ -76,10 +75,10 @@ public class XML {
 		  }
 	}
 	
+	
 	/**
-	 * acquisisce tutti i valori di un tag dato in un arraylist
-	 * @param type
-	 * @return
+	 * @param type 
+	 * @return Capture all tag value from an arrayList
 	 */
 	public static ArrayList<String> finder(String type){
 		XMLInputFactory xmlInputFactory = null;
@@ -107,11 +106,11 @@ public class XML {
 		return value;
 	}
 	
+	
 	 /**
-	 * acquisisce il valore di un tag di una persona dato nome tag e id persona
-	 * @param id
-	 * @param tag
-	 * @return
+	 * @param id 
+	 * @param tag 
+	 * @return Capture the tag value of a person from tag and id of the person
 	 */
 	private static String personTagFinder(String id,String tag){
 		XMLInputFactory xmlInputFactory = null;
@@ -151,8 +150,7 @@ public class XML {
 	}
 	
 	/**
-	 * genera un arraylist con tutti i nomi presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String> generated with all present names in the file XML
 	 */
 	public static ArrayList<String> nameReader(){
 		ArrayList<String> names = new ArrayList<String>();
@@ -161,8 +159,7 @@ public class XML {
 	}
 	
 	/**
-	 * genera un arraylist con tutti i cognomi presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String> generated with all present surnames in the file XML
 	 */
 	private static ArrayList<String> surnameReader(){
 		ArrayList<String> surnames = new ArrayList<String>();
@@ -171,8 +168,7 @@ public class XML {
 	}
 	
 	/**
-	 * genera un arraylist con tutti i generi presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String> generated with all present gender in the file XML
 	 */
 	private static ArrayList<String> genderReader(){
 		ArrayList<String> genders = new ArrayList<String>();
@@ -181,8 +177,7 @@ public class XML {
 	}
 	
 	/**
-	 * genera un arraylist con tutti i luoghi di nascita presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String> generated with all present birth places in the file XML
 	 */
 	private static ArrayList<String> birthPlaceReader(){
 		ArrayList<String> birthPlaces = new ArrayList<String>();
@@ -191,8 +186,7 @@ public class XML {
 	}
 	
 	/**
-	 * genera un arraylist con tutte le date di nascita presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String> generated with all present birth dates in the file XML
 	 */
 	private static ArrayList<String> birthDateReader(){
 		ArrayList<String> birthDates = new ArrayList<String>();
@@ -200,9 +194,9 @@ public class XML {
 		return birthDates;
 	}
 	
+	
 	/**
-	 * genera un arraylist di Person con tutte le persone presenti nel file XML
-	 * @return
+	 * @return An ArrayList<Person> generated with all present people in the file XML
 	 */
 	public static ArrayList<Person> peopleReader() {
 		ArrayList<Person> people = new ArrayList<Person>();
@@ -212,10 +206,10 @@ public class XML {
 		return people;
 	}
 	
+	
 	/**
-	 * acquisisce una persona dal file XML dato l'id
-	 * @param id
-	 * @return
+	 * @param id 
+	 * @return Captures a person from the XML file given the id
 	 */
 	public static Person findPerson(Integer id) {
 		String idString =id.toString();
@@ -226,9 +220,8 @@ public class XML {
 	
 	
 	/**
-	 * genera HomeTown dato il nome di un comune
-	 * @param comune
-	 * @return
+	 * @param comune 
+	 * @return HomeTown given the name of a municipality
 	 */
 	public static HomeTown homeTownIdReader(String comune) {
 		XMLInputFactory xmlInputFactory = null;
@@ -261,9 +254,9 @@ public class XML {
 		return null;
 	}
 	
+	
 	/**
-	 * genera un arraylist di codici fiscali presenti nel file XML
-	 * @return
+	 * @return An ArrayList<String>  of fiscal codes present in the XML
 	 */
 	public static ArrayList<String> fiscalCodeReader(){
 		XMLInputFactory xmlInputFactory = null;
@@ -291,8 +284,10 @@ public class XML {
 		return value;
 	}
 
-
-	//verifica esistenza della cartella di destinazione
+	
+	/**
+	 * Checks for the destination folder
+	 */
 	private static void directoryExisting() {
 		try {
             File f = new File(PATH_USER_DIRECTORY+PATH_FILE_DESTINATION);
@@ -308,6 +303,13 @@ public class XML {
         }
 
 	}
+	
+	/**
+	 * Write file output
+	 * @param people 
+	 * @param fc_invalid 
+	 * @param fc_unmatched 
+	 */
 	public static void writeXML(ArrayList<Person> people, ArrayList<String> fc_invalid, ArrayList<String> fc_unmatched) {
 		directoryExisting();
 		XMLOutputFactory xmlof = null;
@@ -388,7 +390,9 @@ public class XML {
 		
 	}
 	
-	//ottiene il numero di persone all'interno dell'XML
+	/**
+	 * @return The number of people within the XML
+	 */
 	public static int attrieCount(){
 			XMLInputFactory xmlInputFactory = null;
 			XMLStreamReader xmlStreamReader  = null;
@@ -411,7 +415,7 @@ public class XML {
 			return count-1;
 		}
 	/**
-	 * stampa un separatore di riga
+	 * Print line separator
 	 */
 	private static void separatore() {
 		System.out.println(SEPARATORE);

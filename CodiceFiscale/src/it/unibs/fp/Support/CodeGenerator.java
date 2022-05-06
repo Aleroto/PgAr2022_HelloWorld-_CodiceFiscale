@@ -6,16 +6,13 @@ import it.unibs.fp.codiceFiscale.HomeTown;
 import it.unibs.fp.codiceFiscale.Person;
 
 /**
- * 
- * 
- * 
+ * Generates Fiscal Code
  */
 public class CodeGenerator {
 
-
 	/**
-	 * methods that return a cod of three letter from a surname string with the use of specific rule
-	 * @param surname
+	 * @param surname 
+	 * @return Cod of three letter from a surname string with the use of specific rule
 	 */
 	public static String surnameGenerator(String surname) {
 		// Attributes
@@ -28,7 +25,7 @@ public class CodeGenerator {
 		vowels = splitVowelsConsonants(true, surname);
 		consonants = splitVowelsConsonants(false, surname);
 
-		// generate cod with surname rules
+		//generate cod with surname rules
 		if (surnameLength >= 3) {
 			switch (consonants.size()) {
 			case 0: {
@@ -68,15 +65,11 @@ public class CodeGenerator {
 		// return a value null
 		return codSurname;
 	}
-
-	// methods that return a cod of three letter from a name string with the use of
-	// specific rules
 	
 
 	/**
-	 * methods that return a cod of three letter from a name string with the use of specific rules
-	 * @param name
-	 * @return
+	 * @param name 
+	 * @return Cod of three letter from a name string with the use of specific rules
 	 */
 	public static String nameGenerator(String name) {
 		// Attributes
@@ -135,6 +128,10 @@ public class CodeGenerator {
 	}
 
 	// 1999-12-17
+	/**
+	 * @param value 
+	 * @return Generates year
+	 */
 	public static String yearGenerator(String value) {
 		value = value.substring(2, 4);
 
@@ -142,11 +139,9 @@ public class CodeGenerator {
 	}
 
 	
-	
 	/**
-	 * methods that return a specific char for the moth of birth date
-	 * @param value
-	 * @return
+	 * @param value 
+	 * @return A specific char for the month of birth date
 	 */
 	public static String monthGenerator(String value) {
 		value = value.substring(5, 7);
@@ -219,10 +214,9 @@ public class CodeGenerator {
 	
 	
 	/**
-	 * method that return a Integer between 1 and 31 or 41 and 71, represents the day of birth date and the gender of the person
-	 * @param value
-	 * @param gender
-	 * @return
+	 * @param value 
+	 * @param gender 
+	 * @return A Integer between 1 and 31 or 41 and 71, represents the day of birth date and the gender of the person
 	 */
 	public static String dayGenerator(String value, String gender) {
 		value = value.substring(8);
@@ -249,6 +243,10 @@ public class CodeGenerator {
 
 	// TODO cities generator
 
+	/**
+	 * @param code 
+	 * @return Controls characters and generates finalCode
+	 */
 	public static String controlCharacter(String code) {
 		String finalCode = "";
 		String charPosPari = "";
@@ -570,10 +568,9 @@ public class CodeGenerator {
 
 	
 	/**
-	 * method to split a word in an array of vowels or consonants
-	 * @param vowelsOrConsonant
-	 * @param word
-	 * @return
+	 * @param vowelsOrConsonant 
+	 * @param word 
+	 * @return Splits a word in an array of vowels or consonants
 	 */
 	private static ArrayList<String> splitVowelsConsonants(boolean vowelsOrConsonant, String word) {
 
