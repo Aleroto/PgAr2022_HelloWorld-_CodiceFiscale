@@ -2,14 +2,13 @@ package it.unibs.fp.codiceFiscale;
 
 import java.io.File;
 
-import java.io.FileInputStream;
+
+
 import java.io.FileReader;
 import java.io.Reader;
-import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
@@ -28,7 +27,7 @@ public class XML {
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String PATH_XML_COMUNI = "/XML/comuni.xml";
 	private static final String PATH_XML_CODICI_FISCALI = "/XML/codiciFiscali.xml";	
-	private static final String PATH_FILE_DESTINATION = "/XML/Risultati/";
+	private static final String PATH_FILE_DESTINATION = "/XML/CodiciGenerati/";
 	private static final String FILIPATCH_INPUT_PERSONE = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String FILIPATCH_COMUNI = PATH_USER_DIRECTORY + PATH_XML_COMUNI;
 	private static final String FILIPATCH_CODICI_FISCALI = PATH_USER_DIRECTORY + PATH_XML_CODICI_FISCALI;
@@ -294,13 +293,11 @@ public class XML {
 	private static void directoryExisting() {
 		try {
             File f = new File(PATH_USER_DIRECTORY+PATH_FILE_DESTINATION);
-            if (f.exists()) {
+            if (!f.exists()) {
+                System.out.println("Creating directory");
             	f.mkdir();
-            	System.out.println("File created");
             }
-            else
-                System.out.println("File already exists");
-        }
+		}
         catch (Exception e) {
             System.err.println(e);
         }
@@ -326,7 +323,7 @@ public class XML {
 		try {
 			xmlof = XMLOutputFactory.newInstance();
 			//xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/Prova/text.xml"), "utf-8");
-			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/XML/codiciPersone.xml"), "utf-8");
+			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/XML/CodiciGenerati/codiciPersone.xml"), "utf-8");
 
 			xmlw.writeStartDocument("utf-8", "1.0");
 			xmlw.writeStartElement("output"); //Scrittura del tag radice [1]

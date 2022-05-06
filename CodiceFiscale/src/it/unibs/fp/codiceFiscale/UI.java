@@ -1,12 +1,8 @@
 package it.unibs.fp.codiceFiscale;
 
-import java.io.FileOutputStream;
+
 import java.util.ArrayList;
 import java.util.regex.*;
-
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamWriter;
-
 import it.unibs.fp.Support.*;
 
 
@@ -92,6 +88,7 @@ public class UI {
 	 * Generates all the fiscal code by data from the XML collect in the arrayList
 	 * @param people 
 	 */
+	/*
 	private static void fcGenerator(ArrayList<Person> people) {
 		//Check if the people list is null
 		if (people.equals(null)) {
@@ -117,10 +114,8 @@ public class UI {
 			
 			person.setFc(fc);
 		}
-
-		Integer aspetto = null;
 	}
-	
+	*/
 	
 	/**
 	 * Generates Fiscal Code
