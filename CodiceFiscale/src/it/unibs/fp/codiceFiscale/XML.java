@@ -13,6 +13,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.XMLStreamWriter;
 
+
 import java.util.ArrayList;
 import java.io.FileOutputStream;
 
@@ -22,14 +23,16 @@ import java.io.FileOutputStream;
  * that return a generic arrayList with XML tag name associated *
  */
 public class XML {
+	//Attributes
 	private static final String PATH_USER_DIRECTORY = System.getProperty("user.dir");
 	private static final String PATH_XML_INPUT_PERSONE = "/XML/inputPersone.xml";
 	private static final String PATH_XML_COMUNI = "/XML/comuni.xml";
-	private static final String PATH_XML_CODICI_FISCALI = "/XML/codiciFiscali.xml";
+	private static final String PATH_XML_CODICI_FISCALI = "/XML/codiciFiscali.xml";	
 	private static final String PATH_FILE_DESTINATION = "/XML/Risultati/";
 	private static final String FILIPATCH_INPUT_PERSONE = PATH_USER_DIRECTORY + PATH_XML_INPUT_PERSONE; //File Path
 	private static final String FILIPATCH_COMUNI = PATH_USER_DIRECTORY + PATH_XML_COMUNI;
 	private static final String FILIPATCH_CODICI_FISCALI = PATH_USER_DIRECTORY + PATH_XML_CODICI_FISCALI;
+	
 	private static final String SEPARATORE = "--------------------------------------------------------------------------------------------------------------------";
 
 	
@@ -50,22 +53,22 @@ public class XML {
 			while(xmlStreamReader.hasNext()){
 			  int xmlEvent = xmlStreamReader.next();	//Get integer value of current event.
 			  switch(xmlEvent) {
-			  	case XMLStreamConstants.START_DOCUMENT: // inizio del documento: stampa che inizia il documento
+			  	case XMLStreamConstants.START_DOCUMENT: //Inizio del documento: stampa che inizia il documento
 					 System.out.println("Start Read Doc " + FILIPATCH_INPUT_PERSONE); break;
-				 case XMLStreamConstants.START_ELEMENT: // inizio di un elemento: stampa il nome del tag e i suoi attributi
+				 case XMLStreamConstants.START_ELEMENT: //Inizio di un elemento: stampa il nome del tag e i suoi attributi
 					 System.out.println("Tag " + xmlStreamReader.getLocalName());
 					 for (int i = 0; i < xmlStreamReader.getAttributeCount(); i++) {
 						 separatore();
 						 System.out.printf("=> attributo %s ->%s%n", xmlStreamReader.getAttributeLocalName(i), xmlStreamReader.getAttributeValue(i));
 					 }
 					 break;
-				 case XMLStreamConstants.END_ELEMENT: // fine di un elemento: stampa il nome del tag chiuso
+				 case XMLStreamConstants.END_ELEMENT: //Fine di un elemento: stampa il nome del tag chiuso
 					 //System.out.println("END-Tag " + xmlStreamReader.getLocalName());
 					 break;
 				 case XMLStreamConstants.COMMENT:
-					 System.out.println("// commento " + xmlStreamReader.getText()); break; // commento: ne stampa il contenuto
-				 case XMLStreamConstants.CHARACTERS: // content all�interno di un elemento: stampa il testo
-					 if (xmlStreamReader.getText().trim().length() > 0) // controlla se il testo non contiene solo spazi
+					 System.out.println("// commento " + xmlStreamReader.getText()); break; //Commento: ne stampa il contenuto
+				 case XMLStreamConstants.CHARACTERS: //Contentenuto interno di un elemento: stampa il testo
+					 if (xmlStreamReader.getText().trim().length() > 0) //Controlla se il testo non contiene solo spazi
 					 System.out.println("-> " + xmlStreamReader.getText());
 					 break;
 			  }
@@ -310,48 +313,64 @@ public class XML {
 	 * @param fc_invalid 
 	 * @param fc_unmatched 
 	 */
-	public static void writeXML(ArrayList<Person> people, ArrayList<String> fc_invalid, ArrayList<String> fc_unmatched) {
+	public static void writeXML(ArrayList<Person> people, ArrayList<String> fc_invalid, ArrayList<String> fc_unmatched, ArrayList<String> fc_absent) {
 		directoryExisting();
 		XMLOutputFactory xmlof = null;
 		XMLStreamWriter xmlw = null;
 
+		int absent = 0; //Variabile per gestione stampa assente
 		Integer peopleSize = people.size();
 		Integer invalidSize = fc_invalid.size();
 		Integer unmatchedSize = fc_unmatched.size();	
 		
 		try {
 			xmlof = XMLOutputFactory.newInstance();
-			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/Prova/text.xml"), "utf-8");
+			//xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/Prova/text.xml"), "utf-8");
+			xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(PATH_USER_DIRECTORY + "/XML/codiciPersone.xml"), "utf-8");
+
 			xmlw.writeStartDocument("utf-8", "1.0");
-			xmlw.writeStartElement("output"); // scrittura del tag radice [1]
+			xmlw.writeStartElement("output"); //Scrittura del tag radice [1]
 			//BLOCCO XML CON LE PERSONE, liverlli dei tag indicati con [x]
 			xmlw.writeStartElement("persone"); //[2]
-			xmlw.writeAttribute("numero", peopleSize.toString()); // attributo del tag persone che indica il numero di p. presenti
-			xmlw.writeComment("Inizio della lista di persone"); // scrittura di un commento
+			xmlw.writeAttribute("numero", peopleSize.toString()); //Attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di persone"); //Scrittura di un commento
 			Integer count = null;
 			for (int i = 0; i < peopleSize; i++) {
-			count = i+1;
-			xmlw.writeStartElement("persona"); // scrittura del tag PERSONA [3]
-			xmlw.writeAttribute("id", count.toString()); // attributo 
-			xmlw.writeStartElement("nome"); // scrittura del tag NOME[4]
-			xmlw.writeCharacters(people.get(i).getName()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeStartElement("cognome"); // scrittura del tag COGNOME[4]
-			xmlw.writeCharacters(people.get(i).getSurname()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeStartElement("sesso"); // scrittura del tag SESSO[4]
-			xmlw.writeCharacters(people.get(i).getGender()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeStartElement("comune_nascita"); // scrittura del tag COMUNE_NASCITA[4]
-			xmlw.writeCharacters(people.get(i).getBirthPlace().getName()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeStartElement("data_nascita"); // scrittura del tag DATA_NASCITA[4]
-			xmlw.writeCharacters(people.get(i).getBirthDate()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeStartElement("codice_fiscale"); // scrittura del tag CODICE FISCALE[4]
-			xmlw.writeCharacters(people.get(i).getFc().getCode()); // valore contenuto nel tag
-			xmlw.writeEndElement(); // chiusura tag
-			xmlw.writeEndElement(); // chiusura tag
+				count = i+1;
+				xmlw.writeStartElement("persona"); //Scrittura del tag PERSONA [3]
+				xmlw.writeAttribute("id", count.toString()); //Attributo 
+				xmlw.writeStartElement("nome"); //Scrittura del tag NOME[4]
+				xmlw.writeCharacters(people.get(i).getName()); //Valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("cognome"); //Scrittura del tag COGNOME[4]
+				xmlw.writeCharacters(people.get(i).getSurname()); //Valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("sesso"); //Scrittura del tag SESSO[4]
+				xmlw.writeCharacters(people.get(i).getGender()); //Valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("comune_nascita"); //Scrittura del tag COMUNE_NASCITA[4]
+				xmlw.writeCharacters(people.get(i).getBirthPlace().getName()); //Valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("data_nascita"); //Scrittura del tag DATA_NASCITA[4]
+				xmlw.writeCharacters(people.get(i).getBirthDate()); //Valore contenuto nel tag
+				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("codice_fiscale"); //Scrittura del tag CODICE FISCALE[4]
+			
+				for(int k = 0; k < fc_absent.size(); k++) {
+					if((people.get(i).getFc().getCode()).equals(fc_absent.get(k)))
+						absent = 1;
+				}
+				
+				if(absent == 1) {
+					xmlw.writeCharacters("ASSENTE");
+					absent = 0;
+				}	
+				else {
+					xmlw.writeCharacters(people.get(i).getFc().getCode()); //Valore contenuto nel tag
+				}
+					
+			xmlw.writeEndElement(); //Chiusura tag
+			xmlw.writeEndElement(); //Chiusura tag
 			}
 			xmlw.writeEndElement(); //[2]
 			
@@ -359,31 +378,31 @@ public class XML {
 			xmlw.writeStartElement("codici"); //[2]
 			//BLOCCO XML CON I CODICI INVALIDI
 			xmlw.writeStartElement("invalidi"); //[3]
-			xmlw.writeAttribute("numero", invalidSize.toString()); // attributo del tag persone che indica il numero di p. presenti
-			xmlw.writeComment("Inizio della lista di codici fiscali invalidi"); // scrittura di un commento
+			xmlw.writeAttribute("numero", invalidSize.toString()); //Attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di codici fiscali invalidi"); //Scrittura di un commento
 			for (String value : fc_invalid) {
-				xmlw.writeStartElement("codice"); // scrittura del tag codice nella sezione codici invalidi[4]
-				xmlw.writeCharacters(value); // valore contenuto nel tag
-				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("codice"); //Scrittura del tag codice nella sezione codici invalidi[4]
+				xmlw.writeCharacters(value); //Valore contenuto nel tag
+				xmlw.writeEndElement(); //Chiusura tag
 			}
 			xmlw.writeEndElement(); //[3]
 			
 			//BLOCCO XML CON I CODICI SPAIATI
 			xmlw.writeStartElement("spaiati"); //[3]
-			xmlw.writeAttribute("numero", unmatchedSize.toString()); // attributo del tag persone che indica il numero di p. presenti
-			xmlw.writeComment("Inizio della lista di codici fiscali spaiati"); // scrittura di un commento
+			xmlw.writeAttribute("numero", unmatchedSize.toString()); //Attributo del tag persone che indica il numero di p. presenti
+			xmlw.writeComment("Inizio della lista di codici fiscali spaiati"); //Scrittura di un commento
 			for (String value : fc_unmatched) {
-				xmlw.writeStartElement("codice"); // scrittura del tag codice nella sezione codici invalidi[4]
-				xmlw.writeCharacters(value); // valore contenuto nel tag
-				xmlw.writeEndElement(); // chiusura tag
+				xmlw.writeStartElement("codice"); //Scrittura del tag codice nella sezione codici invalidi[4]
+				xmlw.writeCharacters(value); //Valore contenuto nel tag
+				xmlw.writeEndElement(); //Chiusura tag
 			}
 			xmlw.writeEndElement(); //[3]
 			
 			xmlw.writeEndElement(); // [2]
-			xmlw.writeEndElement(); // chiusura della root [1]
-			xmlw.writeEndDocument(); // scrittura della fine del documento
-			xmlw.flush(); // svuota il buffer e procede alla scrittura
-			xmlw.close(); // chiusura del documento e delle risorse impiegate*/
+			xmlw.writeEndElement(); //Chiusura della root [1]
+			xmlw.writeEndDocument(); // Scrittura della fine del documento
+			xmlw.flush(); //Svuota il buffer e procede alla scrittura
+			xmlw.close(); //Chiusura del documento e delle risorse impiegate*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -420,5 +439,7 @@ public class XML {
 	private static void separatore() {
 		System.out.println(SEPARATORE);
 	}
+	
+	
 	
 }

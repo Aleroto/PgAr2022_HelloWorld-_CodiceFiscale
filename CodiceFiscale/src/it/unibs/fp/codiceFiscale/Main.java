@@ -12,16 +12,5 @@ public class Main {
 
 		UI.runProgram();
 		
-		//System.out.println(XML.attrieCount());
-		
-		
-		//Prove per verificare se codice fiscale è corretto
-		//String cf = "PLKVLN92L70D551G";
-		//System.out.print(UI.verifyFiscalCode(cf));
-
-	
-		 //int num = UI.fcChecker(people, fcxml);
-		//boolean stato = UI.fcChecker(cf);
-		
 	}
 }

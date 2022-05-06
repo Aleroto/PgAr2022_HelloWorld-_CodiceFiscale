@@ -7,7 +7,7 @@ package it.unibs.fp.codiceFiscale;
  *FST-PLA-98-M-01-B157-E: surname(3), name(3), yearBirth(2), monthBirth(1), dayBirth(2), birthPlace(1, 2), controlCharacter(1)
  */
 public class FiscalCode {
-	
+	//Attributes
 	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate, birthDayDate;
 	
 	/**
@@ -38,18 +38,7 @@ public class FiscalCode {
 	 * Prints fiscal code (for development uses)
 	 */
 	public void printFiscalCode() {
-		System.out.println("\tCodice fiscale: "+ code);
-
-		/*
-		 if(incorrect == 0) {
-			System.out.println("\tCodice fiscale: "+ code);
-		}
-		else {
-			System.out.println("\tCodice fiscale: "+ MSG_ASSENTE);
-			incorrect = 0;
-		}	
-		 */
-		
+		System.out.println("\tCodice fiscale: "+ code);	
 	}
 	
 	/**

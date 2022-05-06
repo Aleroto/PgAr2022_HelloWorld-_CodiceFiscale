@@ -4,7 +4,7 @@ package it.unibs.fp.codiceFiscale;
  * Used for support in other classes
  */
 public class HomeTown {
-	//Attributes
+	// Attributes
 	private String name,code;
 	
 	/**

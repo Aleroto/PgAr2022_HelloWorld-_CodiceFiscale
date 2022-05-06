@@ -1,7 +1,12 @@
 package it.unibs.fp.codiceFiscale;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.regex.*;
+
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
+
 import it.unibs.fp.Support.*;
 
 
@@ -10,24 +15,19 @@ import it.unibs.fp.Support.*;
  */
 
 public class UI {
-	
+	//Costants
 	private static final String FC_REGEX_EXPRESSION = "[a-zA-Z]{6}\\d\\d[a-zA-Z]\\d\\d[a-zA-Z]\\d\\d\\d[a-zA-Z]";
-	
 	private static final int MATCHED = 0 ;		//codice generato esiste in XML
 	private static final int ABSENT = 1 ;		//assente
 	
-	
+	//Attributes	
 	private static ArrayList<Person> people = new ArrayList<Person>();
-	private static ArrayList<String> fcXml = new ArrayList<String>(); // arraylist with fiscal code take from XML
-	private ArrayList<HomeTown> cities = new ArrayList<HomeTown>(); // arraylist with fiscal code take from XML 
-	
+	private static ArrayList<String> fcXml = new ArrayList<String>(); // arraylist with fiscal code take from XML	
 	public static ArrayList<String> fcXmlMatched = new ArrayList<String>();		//codici corretti
 	public static ArrayList<String> fcXmlAbsent = new ArrayList<String>();		//codici assenti
 	public static ArrayList<String> fcXmlInvalid = new ArrayList<String>();		//codici invalidi
 	public static ArrayList<String> fcXmlCorrect = new ArrayList<String>();		//codici corretti nell'XML che in fine conterrano gli spaiati
 		
-	//TODO lettura file xml dei comuni e importazione nell'arraylist
-	//TODO parte finale di salvataggio in un xml diviso in due tag
 	
 	/**
 	 * Run the main program in a user interface
@@ -52,23 +52,20 @@ public class UI {
 			  Person person = new Person(0,null,null,null,null,null,null);
 			  person = XML.findPerson(i);
 			  
-			  //genero i codici fiscali
+			  //Genero i codici fiscali
 			  PersoFcGenerator(person);
-			  
-			  String s = person.getFc().getCode();
-		  	  //System.out.println(s);
 
-			  //genero arrayList invalidi
+			  //Genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
 			  
 			  	case MATCHED:		
 			  		fcXmlMatched.add(person.getFc().getCode());
+			  		people.add(person);
 			  		break;
 			  		
 			  	case ABSENT:
 			  		 fcXmlAbsent.add(person.getFc().getCode());
-			 		 //System.out.println(person.getFc().getCode());
-
+				  	 people.add(person);
 			  		break;
 			  		
 			  	default:
@@ -77,28 +74,17 @@ public class UI {
 			 
 		
 			  //Stampo a video tutto
-			  person.printPerson();	 
+			  //person.printPerson();	 
 			  			  
 		 }
 		 
-		 //Tolgo dall'array correct tutti gli assenti e tutti i matched 
-		 //cosi mi rimangono gli spaiati in questo array
+		 //Tolgo dall'array correct tutti gli assenti e tutti i matched cosi rimangono gli spaiati
 		 fcXmlCorrect.removeAll(fcXmlAbsent);
 		 fcXmlCorrect.removeAll(fcXmlMatched);
-
-		 /*
-		 //stampo quelli spaiati
-		 System.out.println("-----------SPAIATI------------");
-		 for(int l = 0; l < fcXmlCorrect.size(); l++) {			 
-			 System.out.println(fcXmlCorrect.get(l));
-		 }
+		 		 
+		 //Scrivo su XML (file di output)
+		 XML.writeXML(people, fcXmlInvalid, fcXmlCorrect, fcXmlAbsent);
 		 
-		 //stampo quelli invalidi
-		 System.out.println("-----------INVVALIDI------------");
-		 for(int l = 0; l < fcXmlInvalid.size(); l++) {			 
-			 System.out.println(fcXmlInvalid.get(l));
-		 }
-		 */
 }
 	 
 		 
@@ -107,14 +93,14 @@ public class UI {
 	 * @param people 
 	 */
 	private static void fcGenerator(ArrayList<Person> people) {
-		// check if the people list is null
+		//Check if the people list is null
 		if (people.equals(null)) {
 			System.out.println("ERRORE");
 		}
-		// see the person in the list of people
+		//See the person in the list of people
 		for (Person person : people) {
 			FiscalCode fc = new FiscalCode(null, null, null, null, null, null, null, null);
-			// check if the fiscal code is empty or not
+			//Check if the fiscal code is empty or not
 			fc.setSurname(CodeGenerator.surnameGenerator(person.getSurname()));
 			fc.setName(CodeGenerator.nameGenerator(person.getName()));
 			fc.setBirthYearDate(CodeGenerator.yearGenerator(person.getBirthDate()));
@@ -126,7 +112,7 @@ public class UI {
 					+ fc.getBirthDayDate() + fc.getBirthCodPlace();
 
 			fc.setControlCharacter(CodeGenerator.controlCharacter(codeTemp));
-			// set the code attributes that is all the part of the fiscal code together
+			//Set the code attributes that is all the part of the fiscal code together
 			fc.setCode(codeTemp + fc.getControlCharacter());
 			
 			person.setFc(fc);
@@ -141,14 +127,14 @@ public class UI {
 	 * @param person 
 	 */
 	private static void PersoFcGenerator(Person person) {
-		// check if the people list is null
+		//Check if the people list is null
 		if (people.equals(null)) {
 			System.out.println("ERRORE");
 		}
-		// see the person in the list of people
+		//See the person in the list of people
 		
 		FiscalCode fc = new FiscalCode(null, null, null, null, null, null, null, null);
-		// check if the fiscal code is empty or not
+		//Check if the fiscal code is empty or not
 		fc.setSurname(CodeGenerator.surnameGenerator(person.getSurname()));
 		fc.setName(CodeGenerator.nameGenerator(person.getName()));
 		fc.setBirthYearDate(CodeGenerator.yearGenerator(person.getBirthDate()));
@@ -160,7 +146,7 @@ public class UI {
 				+ fc.getBirthDayDate().toString() + fc.getBirthCodPlace();
 
 		fc.setControlCharacter(CodeGenerator.controlCharacter(codeTemp));
-		// set the code attributes that is all the part of the fiscal code togheter
+		//Set the code attributes that is all the part of the fiscal code togheter
 		fc.setCode(codeTemp + fc.getControlCharacter());
 		
 		person.setFc(fc);

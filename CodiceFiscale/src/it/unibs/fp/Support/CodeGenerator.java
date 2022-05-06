@@ -15,17 +15,17 @@ public class CodeGenerator {
 	 * @return Cod of three letter from a surname string with the use of specific rule
 	 */
 	public static String surnameGenerator(String surname) {
-		// Attributes
+		//Attributes
 		int surnameLength = surname.length();
 		ArrayList<String> vowels = new ArrayList<String>();
 		ArrayList<String> consonants = new ArrayList<String>();
 		String codSurname = null;
 
-		// split the surname in two array, one of vowels and the other one in consonants
+		//Split the surname in two array, one of vowels and the other one in consonants
 		vowels = splitVowelsConsonants(true, surname);
 		consonants = splitVowelsConsonants(false, surname);
 
-		//generate cod with surname rules
+		//Generate cod with surname rules
 		if (surnameLength >= 3) {
 			switch (consonants.size()) {
 			case 0: {
@@ -33,28 +33,28 @@ public class CodeGenerator {
 				return codSurname.toUpperCase();
 			}
 			case 1: {
-				// for one consonants
+				//For one consonants
 				codSurname = consonants.get(0) + vowels.get(0) + vowels.get(1);
 				return codSurname.toUpperCase();
 			}
 			case 2: {
-				// for two consonants
+				//For two consonants
 				codSurname = consonants.get(0) + consonants.get(1) + vowels.get(0);
 				return codSurname.toUpperCase();
 			}
 			default: {
-				// for three or more consonants
+				//For three or more consonants
 				codSurname = consonants.get(0) + consonants.get(1) + consonants.get(2);
 				return codSurname.toUpperCase();
 			}
 			}
 		} else if (surnameLength >= 1) {
 			if (surnameLength == 1) {
-				// length equals to 1
+				//Length equals to 1
 				codSurname = surname + "XX";
 				return codSurname.toUpperCase();
 			} else {
-				// length equals to 2
+				//Length equals to 2
 				codSurname = surname + "X";
 				return codSurname.toUpperCase();
 			}
@@ -62,7 +62,7 @@ public class CodeGenerator {
 			System.out.println("La lunghezza inserita e' minore o uguale a zero, ATTENZIONE!!");
 		}
 
-		// return a value null
+		//Return a value null
 		return codSurname;
 	}
 	
@@ -72,17 +72,17 @@ public class CodeGenerator {
 	 * @return Cod of three letter from a name string with the use of specific rules
 	 */
 	public static String nameGenerator(String name) {
-		// Attributes
+		//Attributes
 		int nameLength = name.length();
 		ArrayList<String> vowels = new ArrayList<String>();
 		ArrayList<String> consonants = new ArrayList<String>();
 		String codName = null;
 
-		// split the name in two array, one of vowels and the other one in consonants
+		//Split the name in two array, one of vowels and the other one in consonants
 		vowels = splitVowelsConsonants(true, name);
 		consonants = splitVowelsConsonants(false, name);
 
-		// generate cod with name rules
+		//Generate cod with name rules
 		if ((vowels.size() + consonants.size())>= 3) {
 			switch (consonants.size()) {
 			case 0: {
@@ -94,28 +94,28 @@ public class CodeGenerator {
 				return codName.toUpperCase();
 			}
 			case 2: {
-				// for one consonants
+				//For one consonants
 				codName = consonants.get(0) + consonants.get(1) + vowels.get(0);
 				return codName.toUpperCase();
 			}
 			case 3: {
-				// for two consonants
+				//For two consonants
 				codName = consonants.get(0) + consonants.get(1) + consonants.get(2);
 				return codName.toUpperCase();
 			}
 			default: {
-				// for four or more consonants
+				//For four or more consonants
 				codName = consonants.get(0) + consonants.get(2) + consonants.get(3);
 				return codName.toUpperCase();
 			}
 			}
 		} else if (nameLength >= 1) {
 			if (nameLength == 1) {
-				// length equals to 1
+				//Length equals to 1
 				codName = name + "XX";
 				return codName.toUpperCase();
 			} else {
-				// length equals to 2
+				//Length equals to 2
 				codName = name + "X";
 				return codName.toUpperCase();
 			}
@@ -123,7 +123,7 @@ public class CodeGenerator {
 			System.out.println("La lunghezza inserita e' minore o uguale a zero, ATTENZIONE!!");
 		}
 
-		// return a value null
+		//Return a value null
 		return codName;
 	}
 
@@ -150,67 +150,67 @@ public class CodeGenerator {
 			int temp = Integer.parseInt(value); // convert the string like 01 or 11 in a int for the switch
 			switch (temp) {
 			case 1: {
-				// January
+				//January
 				return "A";
 			}
 			case 2: {
-				// February
+				//February
 				return "B";
 			}
 			case 3: {
-				// March
+				//March
 				return "C";
 			}
 			case 4: {
-				// April
+				//April
 				return "D";
 			}
 			case 5: {
-				// May
+				//May
 				return "E";
 			}
 			case 6: {
-				// June
+				//June
 				return "H";
 			}
 			case 7: {
-				// July
+				//July
 				return "L";
 			}
 			case 8: {
-				// August
+				//August
 				return "M";
 			}
 			case 9: {
-				// September
+				//September
 				return "P";
 			}
 			case 10: {
-				// October
+				//October
 				return "R";
 			}
 			case 11: {
-				// November
+				//November
 				return "S";
 			}
 			case 12: {
-				// September
+				//September
 				return "T";
 			}
 			default:
 				return null;
 			}
 		} catch (NumberFormatException e) {
-			// This is thrown when the String
-			// contains characters other than digits
+			//This is thrown when the String
+			//contains characters other than digits
 			System.out.println("Invalid String");
 		}
 
 		return null;
 	}
 
-	// method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the
-	// day of birth date and the gender of the person
+	//Method that return a Integer beetween 1 and 31 or 41 and 71, rappresents the
+	//day of birth date and the gender of the person
 	
 	
 	/**
@@ -225,7 +225,7 @@ public class CodeGenerator {
 		if (valueInt <= 0 || valueInt > 31) {
 			return null;
 		}
-		// check if gender is one char and is F or M
+		//Check if gender is one char and is F or M
 		if (gender.length() == 1 && Pattern.matches(regex_vowels, gender)) {
 			if (gender.equals("F") ){
 				valueInt = valueInt + 40;
@@ -241,7 +241,6 @@ public class CodeGenerator {
 		return null;
 	}
 
-	// TODO cities generator
 
 	/**
 	 * @param code 
@@ -582,10 +581,6 @@ public class CodeGenerator {
 			// true for vowels
 			for (int i = 0; i < word.length(); i++) {
 				String character = word.substring(i, i + 1);
-				// collect the char in a arraylist and check if there are consecutive duplicates
-				/*if (vowels.size() != 0 && character.equals(vowels.get(vowels.size() - 1))) {
-					continue;
-				}*/
 				if (Pattern.matches(regex_vowels, character)) {
 					vowels.add(character);
 				}
@@ -595,10 +590,6 @@ public class CodeGenerator {
 			// false for consonants
 			for (int i = 0; i < word.length(); i++) {
 				String character = word.substring(i, i + 1);
-				// collect the char in a arraylist and check if there are consecutive duplicates
-				/*if (consonants.size() > 0 && character.equals(consonants.get(consonants.size() - 1))) {
-					continue;
-				}*/
 				if (!Pattern.matches(regex_vowels, character)) {
 					consonants.add(character);
 				}

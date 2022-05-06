@@ -46,7 +46,6 @@ public class Person {
 		fc.printFiscalCode();
 	}
 	
-	//Getter and Setter
 	/**
 	 * @return id
 	 */
