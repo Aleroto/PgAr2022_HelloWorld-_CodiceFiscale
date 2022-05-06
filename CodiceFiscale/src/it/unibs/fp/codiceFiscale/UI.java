@@ -27,8 +27,10 @@ public class UI {
 	public static ArrayList<String> fcXmlAbsent = new ArrayList<String>();
 	public static ArrayList<String> fcXmlInvalid = new ArrayList<String>();
 	public static ArrayList<String> fcXmlUnpaired = new ArrayList<String>();		//codici spaiati
-
-
+	public static ArrayList<String> fcXmlCorrect = new ArrayList<String>();		//codici corretti nell'XML
+	
+	public static ArrayList<Integer> fcXmlIndex = new ArrayList<Integer>();		//array che mi savlva gli indici a cui devo rimuovere gli elementi
+	//int[] index; 
 	
 	//TODO lettura file xml dei comuni e importazione nell'arraylist
 	//TODO controllo codici fiscali presenti in people con quelli presenti in fcXml, assegnazione di un tag per capire se ? corretto e presente, assente, sbagliato
@@ -40,15 +42,20 @@ public class UI {
 	 */
 	public static void runProgram() {
 				
-		 // "variabile cambio cicli" che varia in base alla rimozione dei codici fiscali nell'arrayList
-		 int changeable;
 		 
 		 //riempio arrayList con Codici Fiscali
 		 fcXml = XML.fiscalCodeReader();
 		 
+				 
+		 //genero array invalidi e quelli corretti
+		  for(int k = 0; k < fcXml.size(); k++) {
+			  if(verifyFiscalCode(fcXml.get(k)))
+				  fcXmlCorrect.add(fcXml.get(k)); 	//possibili spaiati, assenti e matched
+			  else
+				  fcXmlInvalid.add(fcXml.get(k)); 	//invalido 
+		  }
 		 
-		 //changeable = 999;
-		 
+		
 		//Genero e stampo tutte le informazioni delle persone
 		 for (int i = 0; i < 999; i++) { 
 			  Person person = new Person(0,null,null,null,null,null,null);
@@ -58,7 +65,7 @@ public class UI {
 			  PersoFcGenerator(person);
 			  
 			  String s = person.getFc().getCode();
-		  	  System.out.println(s);
+		  	  //System.out.println(s);
 
 			  //genero arrayList invalidi
 			  switch(fcChecker(person.getFc().getCode())) {
@@ -68,32 +75,70 @@ public class UI {
 			  		break;
 			  		
 			  	case ABSENT:
-					  if(verifyFiscalCode(person.getFc().getCode()))
-						  fcXmlUnpaired.add(person.getFc().getCode()); 	//spaiato
-					  else
-						  fcXmlInvalid.add(person.getFc().getCode()); 	//invalido
-				
+			  		 fcXmlAbsent.add(person.getFc().getCode());
+			 		 //System.out.println(person.getFc().getCode());
+
 			  		break;
 			  		
 			  	default:
 			
 			  }
-			  
-			  //cambio cicli da fare ogni volta che tolgo un codice che è uguale 
-			  //a quello generato ed è presente anche in codiciFiscali.xml
-			  //changeable = fcXml.size();
-			  
+			 
+		
 			  //stampo a video tutto
-			  person.printPerson();	 
+			  //person.printPerson();	 
 			  			  
 		 }
-		  
+		 
+		 //Copio tutti gli elementi corretti nell'array degli spaiati
+		 //fcXmlUnpaired.addAll(fcXmlCorrect);
+		 
+		 
+	
+		 fcXmlCorrect.removeAll(fcXmlAbsent);
+		 fcXmlCorrect.removeAll(fcXmlMatched);
+
+		 
+		 
+		 
+		 
+		 
 		 /*
-		 for(int i = 0; i < fcXmlUnpaired.size(); i++) {
-			 System.out.println("-----------SPAIATI------------");
-			 System.out.println(fcXmlUnpaired.get(i));
-			 }
+		 //tolgo dagli spaiati quelli assenti
+		 for(int t=0; t < fcXmlCorrect.size(); t++) {	
+			 for(int b=0; b < fcXmlAbsent.size(); b++) {
+				 if(fcXmlCorrect.get(t).equals(fcXmlAbsent.get(b))) {
+					  //fcXmlUnpaired.remove(fcXmlCorrect.get(t));
+					  fcXmlIndex.add(t);
+					  break;
+				  }
+			 }  	
+		 }
+		 
+		//tolgo dagli spaiati quelli presenti
+		 for(int m=0; m < fcXmlCorrect.size(); m++) {
+			  for(int n=0; n < fcXmlMatched.size(); n++) {
+				  if(fcXmlCorrect.get(m).equals(fcXmlMatched.get(n))) {
+					  //fcXmlUnpaired.remove(fcXmlCorrect.get(m));
+					  fcXmlIndex.add(m);
+					  break;
+				  }
+			 }  	
+		  }
+		
 		 */
+
+		 
+		 
+		 //mi rimangono quelli spaiati
+		 for(int l = 0; l < fcXmlCorrect.size(); l++) {			 
+			 System.out.println("-----------SPAIATI------------");
+			 System.out.println(fcXmlCorrect.get(l));
+		 }
+	 
+		 
+}
+	 
 		 
 		 
 		 
@@ -118,7 +163,6 @@ public class UI {
 			person.printPerson();
 		}
 	*/
-	}
 
 	
 
@@ -198,14 +242,15 @@ public class UI {
 	 * @param fcGnted
 	 */
 	public static Integer fcChecker(String fcGnted){
-		for(int fc_xml = 0; fc_xml < fcXml.size() ; fc_xml++){
+		for(int fc_xml = 0; fc_xml < fcXmlCorrect.size() ; fc_xml++){
 			
-			if(fcGnted.equals(fcXml.get(fc_xml)))
+			if(fcGnted.equals(fcXmlCorrect.get(fc_xml)))
 				return 0; //codice corretto
 		}
 		
-		return 1; // codice assente comprende quelli spaiati e quelli invalidi
 		
+		return 1; // codice assente 
+				
 	}
 					
 		

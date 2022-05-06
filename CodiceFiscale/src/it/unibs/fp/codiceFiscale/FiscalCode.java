@@ -10,7 +10,7 @@ public class FiscalCode {
 	
 	private String name,surname,birthCodPlace,controlCharacter, birthMonthDate, code, birthYearDate, birthDayDate;
 	
-	private static final String MSG_ASSENTE = "ASSENTE";
+	//private static final String MSG_ASSENTE = "ASSENTE";
 
 	
 	//constructor
