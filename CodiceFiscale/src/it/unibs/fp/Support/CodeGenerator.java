@@ -1,10 +1,8 @@
 package it.unibs.fp.Support;
 
 import java.util.ArrayList;
-import java.util.regex.*;
-import it.unibs.fp.codiceFiscale.HomeTown;
-import it.unibs.fp.codiceFiscale.Person;
 
+import java.util.regex.*;
 /**
  * Generates Fiscal Code
  */
